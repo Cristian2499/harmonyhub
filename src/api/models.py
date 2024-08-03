@@ -50,14 +50,14 @@ class User(db.Model):
     password = db.Column(db.String(180), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     # son adiciones
-    name = db.Colum(db.String(120), unique=False, nullable=False)
-    lastname = db.Colum(db.String(120), unique=False, nullable=False)
-    nickname = db.Colum(db.String(120), unique=True, nullable=False) #revisar el unique
+    name = db.Column(db.String(120), unique=False, nullable=False)
+    lastname = db.Column(db.String(120), unique=False, nullable=False)
+    nickname = db.Column(db.String(120), unique=True, nullable=False) #revisar el unique
     #date_of_birth = db.Colum(db.String(120), unique=False, nullable=False) #revisar
-    gender = db.Colum(db.Enum(Gender), unique=False, nullable=False)
-    music_gender = db.Colum(db.Enum(MusicGender), unique=False, nullable=False)
-    role = db.Colum(db.Enum(Role), unique=False, nullable=False)
-    country = db.Colum(db.Enum(Country), unique=False, nullable=False)
+    gender = db.Column(db.Enum(Gender), unique=False, nullable=False)
+    #music_gender = db.Column(db.Enum(MusicGender), unique=False, nullable=False)
+    role = db.Column(db.Enum(Role), unique=False, nullable=False)
+    country = db.Column(db.Enum(Country), unique=False, nullable=False)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -71,7 +71,7 @@ class User(db.Model):
             "lastname": self.lastname,
             "nickname": self.nickname,
             "gender": self.gender.value,
-            "music_gender": self.music_gender.value,
+            #"music_gender": self.music_gender.value,
             "role": self.role.value,
             "country": self.country.value
         }
