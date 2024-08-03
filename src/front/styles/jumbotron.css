@@ -1,0 +1,6 @@
+.jumbotron {
+  background-image: url(https://images.pexels.com/photos/164716/pexels-photo-164716.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  min-height: 50vh;
+  background-size: cover;
+  color: white;
+}
