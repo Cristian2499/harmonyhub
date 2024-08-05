@@ -1,0 +1,58 @@
+/*Styles for the links*/
+.nav-link {
+    color: white;
+    position: relative;
+  }
+  
+  .nav-link:hover {
+    color: #9296f0;
+  }
+  
+  .nav-link:focus {
+    color: #9296f0;
+  }
+  
+  @media (min-width: 991px) {
+    .nav-link::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 4px;
+      background-color: #9296f0;
+      visibility: hidden;
+      transition: 0.3s ease-in-out;
+    }
+  
+    .nav-link:hover::before,
+    .nav-link:focus::before {
+      width: 100%;
+      visibility: visible;
+    }
+  }
+  
+  @media (max-width: 990px) {
+    .nav-link {
+      text-align: center;
+    }
+    .nav-link::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 4px;
+      background-color: #9296f0;
+      visibility: hidden;
+      transition: 0.3s ease-in-out;
+    }
+  
+    .nav-link:hover::before,
+    .nav-link:focus::before {
+      width: 100%;
+      visibility: visible;
+    }
+  }
