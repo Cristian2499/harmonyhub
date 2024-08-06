@@ -56,7 +56,7 @@ class User(db.Model):
     #date_of_birth = db.Colum(db.String(120), unique=False, nullable=False) #revisar
     gender = db.Column(db.Enum(Gender), unique=False, nullable=False)
     #music_gender = db.Column(db.Enum(MusicGender), unique=False, nullable=False)
-    role = db.Column(db.Enum(Role), unique=False, nullable=False)
+    #role = db.Column(db.Enum(Role), unique=False, nullable=False)
     country = db.Column(db.Enum(Country), unique=False, nullable=False)
 
     def __repr__(self):
@@ -71,9 +71,9 @@ class User(db.Model):
             "lastname": self.lastname,
             "nickname": self.nickname,
             "gender": self.gender.value,
-            #"music_gender": self.music_gender.value,
-            "role": self.role.value,
             "country": self.country.value
         }
     
 
+class MusicGender(db.Model):
+    pass
