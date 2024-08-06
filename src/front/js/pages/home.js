@@ -3,6 +3,9 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Jumbotron from "../component/Jumbotron.jsx";
+import { Navbar } from "../component/Navbar.jsx";
+import { Footer } from "../component/Footer.jsx";
+
 
 
 export const Home = () => {
@@ -10,6 +13,7 @@ export const Home = () => {
 
 	return (
 		<>
+		<Navbar />
 		<Jumbotron/>
 		
 		<div className="text-center mt-5">
@@ -28,6 +32,7 @@ export const Home = () => {
 				</a>
 			</p>
 		</div>
+		<Footer />
 		</>
 	);
 };

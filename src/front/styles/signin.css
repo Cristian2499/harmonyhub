@@ -1,0 +1,18 @@
+.fondo-signin{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.base-form{
+    
+    width: 50rem;
+    height: 30rem;
+}
+
+.input-email{
+    width: 25rem;
+}
+
+.input-password{
+    width: 25rem;
+}

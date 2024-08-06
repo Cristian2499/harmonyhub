@@ -35,7 +35,7 @@ export const Navbar = () => {
             name3="Profile"
           />
           <div className="buttons-navbar d-flex ms-auto">
-            <button className="signin me-2">Sign in</button>
+            <Link to="/signin"><button className="signin me-2">Sign in</button></Link>
             <button className="create-account">Create account</button>
           </div>
         </div>
