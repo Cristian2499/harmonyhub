@@ -36,7 +36,7 @@ export const Navbar = () => {
           />
           <div className="buttons-navbar d-flex ms-auto">
             <button className="signin me-2">Sign in</button>
-            <button className="create-account">Create account</button>
+            <Link to="/signup"><button className="create-account">Create account</button></Link>
           </div>
         </div>
       </div>
