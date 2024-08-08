@@ -1,0 +1,103 @@
+/*Styles for the navbar crystal*/
+.navbar {
+  background-color: rgba(0, 0, 0, 0.93);
+  backdrop-filter: blur(3px);
+}
+
+/*Styles for the brand*/
+.link-home {
+  text-decoration: none;
+  padding: 0.5em;
+  border: none;
+  background: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.link-home:hover {
+  color: #9296f0;
+  transition: 0.3s;
+  transform: scale(1.05);
+}
+
+.link-home:active {
+  transform: scale(1);
+}
+
+.img-brand {
+  width: 3em;
+}
+
+/*Styles for the signin button*/
+.signin {
+  padding: 0.5em;
+  border-style: solid;
+  border-color: #9296f0;
+  background: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signin:hover {
+  background-color: #9296f0;
+  color: white;
+  transform: scale(1.05);
+}
+
+.signin:active {
+  transform: scale(1);
+}
+
+/*Styles for the Create account button*/
+.create-account {
+  padding: 0.5em;
+  border: none;
+  background: #9296f0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.create-account:hover {
+  transform: scale(1.05);
+}
+
+.create-account:active {
+  transform: scale(1);
+}
+
+/*Styles for the navbar toggler button*/
+.navbar-toggler {
+  border: none;
+  background: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.navbar-toggler:hover {
+  background-color: #9296f0;
+  color: white;
+  transform: scale(1.05);
+}
+
+.navbar-toggler:active {
+  transform: scale(1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+@media (max-width: 990px) {
+.buttons-navbar {
+  justify-content: center;
+  margin: 20px 20px 20px 20px;
+}
+}
