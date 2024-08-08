@@ -12,7 +12,7 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<>
+		<div className="animate__animated animate__fadeIn">
 		<Navbar />
 		<Jumbotron/>
 		
@@ -33,6 +33,6 @@ export const Home = () => {
 			</p>
 		</div>
 		<Footer />
-		</>
+		</div>
 	);
 };

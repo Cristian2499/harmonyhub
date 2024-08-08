@@ -3,16 +3,50 @@
     background-position: center;
     background-repeat: no-repeat;
 }
-.base-form{
+
+.img-brand-signin{
+    width: 6rem;
+}
+
+.input-email:focus{
+    box-shadow: none;
+    border: solid;
+    border-color: #9296f0;
+}
+
+.input-password:focus{
+    box-shadow: none;
+    border: solid;
+    border-color: #9296f0;
+}
+
+.btn-create-account, .btn-login {
     
-    width: 50rem;
-    height: 30rem;
-}
+    padding: 0.5em;
+    border: none;
+    background: #9296f0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-create-account:hover, .btn-login:hover {
+    transform: scale(1.05);
+  }
+  
+  .btn-create-account:active, .btn-login:active {
+    transform: scale(1);
+  }
 
-.input-email{
-    width: 25rem;
-}
+  .btn-login{
+    width: 30%;
+  }
 
-.input-password{
-    width: 25rem;
-}
+  .btn-create-account{
+    width: 100%;
+  }
+
+  .scale-btn{
+    width: 30%;
+  }
