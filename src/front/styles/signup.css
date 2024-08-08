@@ -1,6 +1,61 @@
-.bg-signup{
+/*.bg-signup{
     background-color: #9296f0;
 }
-.morenito{
-    width: 90rem;
-}
+ signup.css */
+ .bg-signup {
+    background-color: #9296f0;
+    padding-right: 10%;
+  }
+  
+  .Signup-header {
+    background-color:#9296f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #9296f0;
+  }
+  
+  .form-control {
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .btn {
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #CDA8E1FF;
+    border: none;
+  }
+  
+  .social-login .btn {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+  }
+  
+  .google {
+    background-color: #db4437;
+    border: none;
+  }
+  
+  .facebook {
+    background-color: #3b5998;
+    border: none;
+  }
+  
+  .twitter {
+    background-color: #1da1f2;
+    border: none;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+  
+  .morenito {
+    height: 80%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
