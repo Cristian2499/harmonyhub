@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import db, User, Gender, Role, Country, MusicGender, UserMusicGender
+from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -52,6 +52,14 @@ def create_music_gender():
         if name is None:
             return jsonify({"error": "name is required"}), 400
 
+        music_gender = MusicGender(name=name)
+
+        db.session.add(music_gender)
+        db.session.commit()
+        db.session.refresh(music_gender)
+
+        return jsonify({"message": f"{name} created!"}), 201
+
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
@@ -59,18 +67,57 @@ def create_music_gender():
 @jwt_required()
 def create_user_music_gender(music_gender_id):
     try: 
+        user_data = get_jwt_identity()
         music_gender_is_taken = UserMusicGender.query.filter_by(user_id = user_data["id"], music_gender_id = music_gender_id).first()
         if music_gender_is_taken:
             return jsonify({"error": "Music gender already exist"}), 400
         
-        user_data = get_jwt_identity()
         user_music_gender = UserMusicGender(user_id = user_data["id"], music_gender_id = music_gender_id)
         db.session.add(user_music_gender)
         db.session.commit()
+        db.session.refresh(user_music_gender)
         return jsonify({"msg": f"{music_gender_id} created!"}), 201
 
     except Exception as error:
         return jsonify({"error": f"{error}"}),500
+    
+@api.route("/musicrole", methods=["POST"])
+def create_music_role():
+    try:
+        body = request.json
+        name = body.get("name", None)
+        if name is None:
+            return jsonify({"error": "name is required"}), 400
+        
+        music_role = MusicRole(name=name)
+
+        db.session.add(music_role)
+        db.session.commit()
+        db.session.refresh(music_role)
+
+        return jsonify({"message": f"{name} created!"}), 201
+    
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+    
+@api.route("/user/musicrole/<int:music_role_id>", methods=["POST"])
+@jwt_required()
+def create_user_music_role(music_role_id):
+    try:
+        user_data = get_jwt_identity()
+        music_role_is_taken = UserMusicRole.query.filter_by(user_id = user_data["id"], music_role_id = music_role_id).first()
+        if music_role_is_taken:
+            return jsonify({"error": "Music role already exits"}), 400
+        
+        user_music_role = UserMusicRole(user_id = user_data["id"], music_role_id = music_role_id)
+        db.session.add(user_music_role)
+        db.session.commit()
+        db.session.refresh(user_music_role)
+        return jsonify({"msg": f"{music_role_id} created!"}), 201
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+
 
 @api.route("/me", methods=["GET"])
 @jwt_required()

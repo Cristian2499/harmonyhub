@@ -8,30 +8,6 @@ class Gender(PyEnum):
     MALE = "Male"
     OTHER ="Other"
 
-class MusicGenderEnum(PyEnum):
-    ROCK = "Rock"
-    JAZZ = "Jazz"
-    URBAN = "Urban"
-    BLUES = "Blues"
-    CLASSIC = "Classic"
-    FOLKLORE = "Folklore"
-    ELECTRO = "Electro"
-    REGGAE = "Reggae"
-    METAL = "Metal"
-    INDIE = "Indie"
-
-class Role(PyEnum):
-    GUITARIST = "Guitarist"
-    SINGER = "Singer"
-    BASSIST = "Bassits"
-    DRUMMER = "Drummer"
-    VIOLINIST = "Violinist"
-    PIANIST = "Pianist"
-    DJ = "Dj"
-    AUDIOENGINEER = "Audio engineer"
-    TRUMPETER = "Trumpeter"
-    UKELELE = "Ukelele"
-
 class Country(PyEnum):
     COLOMBIABOGOTA = "Colombia-Bogota"
     VENEZUELACARACAS = "Venezuela-Caracas"
@@ -72,8 +48,8 @@ class User(db.Model):
             "lastname": self.lastname,
             "nickname": self.nickname,
             "gender": self.gender.value,
-            "music_genders": [music_gender.serialize() for music_gender in self.music_genders], 
-            "music_roles": [music_role.serialize() for music_role in self.music_roles],
+            "music_genders": [music_gender.full_serialize() for music_gender in self.music_genders], 
+            "music_roles": [music_role.full_serialize() for music_role in self.music_roles],
             "country": self.country.value
         }
     
@@ -109,6 +85,11 @@ class UserMusicGender(db.Model):
             "music_gender_id": self.music_gender_id
         }
     
+    def full_serialize(self):
+        music_gender = MusicGender.query.get(self.music_gender_id)
+        return music_gender.serialize()
+        
+    
 class MusicRole(db.Model):
     __tablename__ = "music_role"
     id = db.Column(db.Integer, primary_key=True)
@@ -139,3 +120,7 @@ class UserMusicRole(db.Model):
             "user_id": self.user_id, 
             "music_role_id": self.music_role_id
         }
+    
+    def full_serialize(self):
+        music_role = MusicRole.query.get(self.music_role_id)
+        return music_role.serialize()
