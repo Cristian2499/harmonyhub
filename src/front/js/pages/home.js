@@ -3,13 +3,17 @@ import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Jumbotron from "../component/Jumbotron.jsx";
+import { Navbar } from "../component/Navbar.jsx";
+import { Footer } from "../component/Footer.jsx";
+
 
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<>
+		<div className="animate__animated animate__fadeIn">
+		<Navbar />
 		<Jumbotron/>
 		
 		<div className="text-center mt-5">
@@ -28,6 +32,7 @@ export const Home = () => {
 				</a>
 			</p>
 		</div>
-		</>
+		<Footer />
+		</div>
 	);
 };
