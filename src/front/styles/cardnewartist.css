@@ -1,0 +1,28 @@
+.bg-card{
+    background-color: #9296f0;
+    max-width: 25rem;
+}
+
+.img-new-artist{
+    width: 60%;
+}
+
+.base-play{
+    width: 40%;
+}
+
+.btn-play{
+    background: none;
+    border: none;
+    color: #9296f0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-play:hover{
+    transform: scale(1.1);
+}
+
+.btn-play:active{
+    transform: scale(1.0);
+}

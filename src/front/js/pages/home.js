@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+
 import "../../styles/home.css";
 import Jumbotron from "../component/Jumbotron.jsx";
 import { Navbar } from "../component/Navbar.jsx";
 import { Footer } from "../component/Footer.jsx";
+import CardNewArtist from "../component/CardNewArtist.jsx";
+//test images for cards
+import img01 from "../../img/img-new-artist/img-01.png";
+import img02 from "../../img/img-new-artist/img-02.png";
 
 
 
@@ -15,22 +19,8 @@ export const Home = () => {
 		<div className="animate__animated animate__fadeIn">
 		<Navbar />
 		<Jumbotron/>
-		
-		<div className="text-center mt-5">
-		
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
+		<div className="d-flex justify-content-center align-items-center">
+		<CardNewArtist name="John Doe - Guitarist" imageNewArtist={img01} footer="Soy el footer" />
 		</div>
 		<Footer />
 		</div>
