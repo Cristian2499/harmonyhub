@@ -1,6 +1,6 @@
 .bg-card{
     background-color: #9296f0;
-    max-width: 25rem;
+    width: 30rem;
 }
 
 .img-new-artist{
@@ -25,4 +25,26 @@
 
 .btn-play:active{
     transform: scale(1.0);
+}
+
+.btn-like, .btn-user-plus{
+    background: none;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-like:hover, .btn-user-plus:hover{
+    transform: scale(1.03);
+}
+
+.btn-like:active, .btn-user-plus:active{
+    transform: scale(1.0);
+}
+
+.btn-like:focus, .btn-user-plus:focus{
+    background: white;
+    color: #9296f0;
 }
