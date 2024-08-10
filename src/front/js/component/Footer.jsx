@@ -12,16 +12,16 @@ export const Footer = () => {
           <label className="w-50 text-white mb-4" htmlFor="">
             Subscribe to Harmony Hub!
           </label>
-          <div class="input-group mb-3 w-50">
+          <div className="input-group mb-3 w-50">
             <input
               type="text"
-              class="input-form-footer form-control"
+              className="input-form-footer form-control"
               placeholder="input your email"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
             />
             <button
-              class="btn-form-footer"
+              className="btn-form-footer"
               type="button"
               id="button-addon2"
             >
