@@ -1,37 +1,33 @@
-import React from 'react';
-import "../../styles/signup.css";
+import React from "react";
 import bgImage from "../../img/morenito.png";
+import "../../styles/signup.css";
 
 const Signup = () => {
   return (
-    <div className="container-fluid vh-100 d-flex justify-content-center align-items-center bg-signup">
-      <div className="row w-100">
-        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center text-center">
-          <header className="Signup-header">
-            <h1 className="text-white">Welcome to Harmony Hub!</h1>
-            <p className="text-white">Create Your Account</p>
+    <>
+      <div className="body" style={{ backgroundImage: `url(${bgImage})` }}>
+        <h1>Welcome to Harmony Hub!</h1>
+        <h2>Create Your Account</h2>
+        <div className="form-container">
+          <div className="form-content">
             <form>
-              <div className="form-group">
-                <input type="email" className="form-control mb-3" placeholder="Email address"/>
-              </div>
-              <button type="submit" className="btn btn-primary mb-3">Sign up</button>
+              <input type="text" placeholder="Nombre" required />
+              <input type="text" placeholder="Apellido" required />
+              <input type="email" placeholder="Email address" required />
+              <input type="text" placeholder="Nickname" required />
+              <input type="text" placeholder="Género" required />
+              <input type="text" placeholder="País" required />
+              <input type="text" placeholder="Género Musical" required />
+              <input type="text" placeholder="Rol Musical" required />
+              <button type="submit">Registrarse</button>
             </form>
-            <p className="text-white">or</p>
-            <div className="social-login">
-              <button className="btn btn-outline-light mb-2 w-100 google">Continue with Google</button>
-              <button className="btn btn-outline-light mb-2 w-100 facebook">Continue with Facebook</button>
-              <button className="btn btn-outline-light mb-2 w-100 twitter">Continue with Twitter</button>
-            </div>
-            <p className="text-white">
-              Already have an account? <a href="/signin" className="text-white">Sign in</a>
+            <p>
+              Already have an account? <a href="#">Sign in</a>
             </p>
-          </header>
-        </div>
-        <div className="col-md-6 d-none d-md-block">
-          <img className="img-fluid morenito" src={bgImage} alt="Morenito" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
