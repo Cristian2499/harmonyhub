@@ -1,0 +1,48 @@
+
+.bg-card{
+    background-color: #9296f0;
+    width: 45rem;
+}
+
+.img-connect{
+    width: 100%;
+}
+/**
+.base-play{
+    width: 40%;
+}
+
+.btn-play{
+    background: none;
+    border: none;
+    color: #9296f0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-play:hover{
+    transform: scale(1.1);
+}
+
+.btn-play:active{
+    transform: scale(1.0);
+}
+*/
+.btn-connect{
+    background: #9296f0;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-connect:hover{
+    transform: scale(1.05);
+}
+
+.btn-connect:active{
+    transform: scale(1.0);
+}
+
+
