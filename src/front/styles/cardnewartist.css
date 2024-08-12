@@ -1,50 +1,79 @@
-.bg-card{
-    background-color: #9296f0;
-    width: 30rem;
+.bg-card {
+  background-color: #9296f0;
+  width: 29rem;
 }
 
-.img-new-artist{
-    width: 60%;
+.img-new-artist {
+  width: 60%;
 }
 
-.base-play{
-    width: 40%;
+.base-play {
+  width: 40%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.btn-play{
-    background: none;
-    border: none;
-    color: #9296f0;
-    cursor: pointer;
-    transition: 0.3s;
+.btn-play {
+  background: none;
+  border: none;
+  color: gray;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.btn-play:hover{
-    transform: scale(1.1);
+.btn-play:hover {
+  transform: scale(1.2);
 }
 
-.btn-play:active{
-    transform: scale(1.0);
+.btn-play:active {
+  transform: scale(1);
 }
 
-.btn-like, .btn-user-plus{
-    background: none;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+.btn-like,
+.btn-user-plus {
+  background: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.btn-like:hover, .btn-user-plus:hover{
-    transform: scale(1.03);
+.btn-like:hover,
+.btn-user-plus:hover {
+  background-color: white;
+  color: #9296f0;
+  transform: scale(1.03);
 }
 
-.btn-like:active, .btn-user-plus:active{
-    transform: scale(1.0);
+.btn-like:active,
+.btn-user-plus:active {
+  transform: scale(1);
 }
 
-.btn-like:focus, .btn-user-plus:focus{
-    background: white;
-    color: #9296f0;
+.btn-like:focus,
+.btn-user-plus:focus {
+  background: white;
+  color: #9296f0;
+}
+
+.btn-connect {
+  border: solid;
+  border-color: white;
+  background: #9296f0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-connect:hover {
+  background-color: white;
+  color: #9296f0;
+  transform: scale(1.03);
+}
+
+.btn-connect:active {
+  transform: scale(1);
 }

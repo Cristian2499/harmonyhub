@@ -9,7 +9,7 @@ export const Footer = () => {
     <footer className="footer container-fluid mt-auto py-3 d-flex">
       <div className="container d-flex flex-column justify-content-end">
         <div className="footer-form container-fluid d-flex flex-column h-50 justify-content-center align-items-center text-center">
-          <label className="w-50 text-white mb-4" htmlFor="">
+          <label className="w-50 text-white mb-4 fs-2" htmlFor="">
             Subscribe to Harmony Hub!
           </label>
           <div className="input-group mb-3 w-50">

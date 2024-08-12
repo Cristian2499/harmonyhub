@@ -1,8 +1,12 @@
 .jumbotron {
-  min-height: 75vh;
+  min-height: 65vh;
   background-size: cover;
   color: white;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.title-jumbotron{
+  font-size: 5rem;
 }
 

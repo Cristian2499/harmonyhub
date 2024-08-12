@@ -3,7 +3,7 @@ import "../../styles/cardconnect.css";
 
 const CardConnect = ({name, imageCardConnect}) => {
   return (
-    <div className="bg-card card m-1 border-0 bg-light">
+    <div className="bg-card-connect card m-1 border-0 bg-light">
       
       <div className="d-flex justify-content-center mt-2">
         <img className="img-connect" src={imageCardConnect} alt="" />
@@ -14,9 +14,7 @@ const CardConnect = ({name, imageCardConnect}) => {
 
       <div className="footer-card d-flex justify-content-end my-2 text-white">
         
-        <button className="btn-connect p-1">
-          Connect
-        </button>
+        
       </div>
     </div>
   )
