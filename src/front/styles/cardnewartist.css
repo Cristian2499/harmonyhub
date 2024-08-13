@@ -1,6 +1,17 @@
-.bg-card {
-  background-color: #9296f0;
-  width: 29rem;
+@media (max-width: 1439px) {
+  .bg-card{
+    background-color: #9296f0;
+    width: 29rem;
+  }
+  
+}
+
+@media (min-width: 1440px) {
+  .bg-card{
+    background-color: #9296f0;
+    width: 32rem;
+  }
+  
 }
 
 .img-new-artist {
@@ -17,7 +28,7 @@
 .btn-play {
   background: none;
   border: none;
-  color: gray;
+  color: grey;
   cursor: pointer;
   transition: 0.3s;
 }

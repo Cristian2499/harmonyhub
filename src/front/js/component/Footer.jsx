@@ -16,7 +16,7 @@ export const Footer = () => {
             <input
               type="text"
               className="input-form-footer form-control"
-              placeholder="input your email"
+              placeholder="Enter your email address"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
             />
