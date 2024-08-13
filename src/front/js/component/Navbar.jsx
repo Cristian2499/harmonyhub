@@ -10,7 +10,7 @@ export const Navbar = () => {
       <div className="container-fluid">
         <Link to="/" className="link-home d-flex align-items-center">
           <img className="img-brand" src={logoHarmonyHub} />
-          <span className="navbar-brand mb-0 ms-1 h1 ">Harmony Hub</span>
+          <span className="navbar-brand mb-0 ms-1 fs-3">Harmony Hub</span>
         </Link>
         <button
           className="navbar-toggler"

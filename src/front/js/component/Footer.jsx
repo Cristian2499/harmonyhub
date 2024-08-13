@@ -9,14 +9,14 @@ export const Footer = () => {
     <footer className="footer container-fluid mt-auto py-3 d-flex">
       <div className="container d-flex flex-column justify-content-end">
         <div className="footer-form container-fluid d-flex flex-column h-50 justify-content-center align-items-center text-center">
-          <label className="w-50 text-white mb-4" htmlFor="">
+          <label className="w-50 text-white mb-4 fs-2" htmlFor="">
             Subscribe to Harmony Hub!
           </label>
           <div className="input-group mb-3 w-50">
             <input
               type="text"
               className="input-form-footer form-control"
-              placeholder="input your email"
+              placeholder="Enter your email address"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
             />

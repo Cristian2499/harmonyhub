@@ -1,8 +1,19 @@
 .jumbotron {
-  min-height: 75vh;
+  min-height: 65vh;
   background-size: cover;
   color: white;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+@media (min-width: 1440px) {
+  .title-jumbotron {
+    font-size: 8rem;
+  }
+}
+
+@media (max-width: 1439px) {
+  .title-jumbotron {
+    font-size: 6rem;
+  }
+}

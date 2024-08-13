@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import "../../styles/menufooter.css";
 
 const MenuFooter = ({direction1, direction2, direction3, direction4, direction5, name1, name2, name3, name4, name5}) => {
   return (
