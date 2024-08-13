@@ -28,8 +28,8 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
           <div className="buttons-navbar d-flex ms-auto">
+            <Link to="/signup"><button className="create-account">Create account</button></Link>
             <Link to="/signin"><button className="signin me-2">Sign in</button></Link>
-            <button className="create-account">Create account</button>
           </div>
         </div>
       </div>
