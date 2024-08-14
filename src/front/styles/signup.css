@@ -1,11 +1,15 @@
 .body{
   background-color: #9296f0;
+  height: 100vh;
+  background-size: cover;
+  background-position: right;
+  background-repeat: no-repeat;
 }
 .form-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #9296f0;
+  background-color: none;
   padding: 50px;
   border-radius: 10px;
   max-width: 1000px;
@@ -34,14 +38,14 @@ form {
   gap: 10px;
 }
 
-input {
+.input-register {
   padding: 10px;
   border: none;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
-button {
+.btn-register{
   grid-column: span 2;
   padding: 10px;
   border: none;
@@ -52,7 +56,7 @@ button {
   font-size: 1rem;
 }
 
-button:hover {
+.button:hover {
   background-color: #8c6bcc;
 }
 
@@ -69,7 +73,4 @@ button:hover {
 .form-image img {
   width: 300px;
   border-radius: 10px;
-}
-.bgImage{
-width: 100px;
 }
