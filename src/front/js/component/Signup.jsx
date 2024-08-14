@@ -34,35 +34,35 @@ const Signup = () => {
         <div className="form-container">
           <div className="form-content">
             <form onSubmit={handleSubmitRegister}>
-              <input
+              <input className="input-register"
                 type="text"
                 placeholder="Name"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
-              <input
+              <input className="input-register"
                 type="text"
                 placeholder="Lastname"
                 required
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
               />
-              <input
+              <input className="input-register"
                 type="text"
                 placeholder="Nickname"
                 required
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
               />
-              <input
+              <input className="input-register"
                 type="email"
                 placeholder="Email address"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input
+              <input className="input-register"
                 type="password"
                 placeholder="Password"
                 required
@@ -114,7 +114,7 @@ const Signup = () => {
                 <option value="Uruguay-Montevideo"> Uruguay-Montevideo</option>
                 <option value="Argentina-BSAS">Argentina-BSAS</option>
               </select>
-              <button type="submit">Registrarse</button>
+              <button className="btn-register" type="submit">Registrarse</button>
             </form>
             <p>
               Already have an account? <a href="#">Sign in</a>
