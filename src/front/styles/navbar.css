@@ -1,7 +1,8 @@
 /*Styles for the navbar crystal*/
 .navbar {
-  background-color: rgba(0, 0, 0, 0.93);
+  background-color: rgba(0, 0, 0, 0.97);
   backdrop-filter: blur(3px);
+  width: 100%;
 }
 
 /*Styles for the brand*/
@@ -100,4 +101,25 @@
   justify-content: center;
   margin: 20px 20px 20px 20px;
 }
+}
+
+.logout {
+  padding: 0.5em;
+  border-style: solid;
+  border-color: #9296f0;
+  background: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout:hover {
+  background-color: #9296f0;
+  color: white;
+  transform: scale(1.05);
+}
+
+.logout:active {
+  transform: scale(1);
 }

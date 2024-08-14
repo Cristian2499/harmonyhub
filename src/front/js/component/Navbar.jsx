@@ -6,7 +6,7 @@ import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar container-fluid navbar-expand-lg fixed-top">
+    <nav className="navbar container-fluid navbar-expand-lg sticky-top">
       <div className="container-fluid">
         <Link to="/" className="link-home d-flex align-items-center">
           <img className="img-brand" src={logoHarmonyHub} />
@@ -28,8 +28,8 @@ export const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           
           <div className="buttons-navbar d-flex ms-auto">
-            <Link to="/signup"><button className="create-account">Create account</button></Link>
             <Link to="/signin"><button className="signin me-2">Sign in</button></Link>
+            <Link to="/signup"><button className="create-account">Create account</button></Link>
           </div>
         </div>
       </div>
