@@ -15,6 +15,7 @@ const Signup = () => {
   const [country, setCountry] = useState("");
   const handleSubmitRegister = (e) => {
     e.preventDefault();
+    actions.register(email, password, name, lastname, nickname, gender, country);
     console.log(email, password, name, lastname, nickname, gender, country);
   }
   const handleChange = (event) => {
