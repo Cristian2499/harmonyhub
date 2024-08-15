@@ -9,8 +9,8 @@ export const Footer = () => {
     <footer className="footer container-fluid mt-auto py-3 d-flex">
       <div className="container d-flex flex-column justify-content-end">
         <div className="footer-form container-fluid d-flex flex-column h-50 justify-content-center align-items-center text-center">
-          <label className="w-50 text-white mb-4 fs-2" htmlFor="">
-            Subscribe to Harmony Hub!
+          <label className="w-50 text-white mb-4 fs-3" htmlFor="">
+            Subscribe to Harmony Hub Newsletter!
           </label>
           <div className="input-group mb-3 w-50">
             <input
@@ -32,9 +32,9 @@ export const Footer = () => {
 
         <div className="footer-menu container-fluid d-flex justify-content-center">
           <MenuFooter
-            direction1="/1"
+            direction1="/"
             name1="About us"
-            direction2="/2"
+            direction2="/"
             name2="Features"
             direction3="/3"
             name3="Contact us"
@@ -66,10 +66,10 @@ export const Footer = () => {
               <img className="img-brand" src={logoHarmonyHub} />
               <span className="text-white">© 2024 Harmony Hub, Inc.</span>
             </li>
-            <li className="networks">
-              <Link to=""><i className="fa-brands fa-twitter me-2 text-info"></i></Link>
-              <Link to=""><i className="fa-brands fa-facebook me-2 text-primary"></i></Link>
-              <Link to=""><i className="fa-brands fa-youtube me-2 text-danger"></i></Link>
+            <li className="networks d-flex align-items-center justify-content-center">
+              <Link to=""><i className="fa-brands fa-twitter me-3 text-info fs-4"></i></Link>
+              <Link to=""><i className="fa-brands fa-facebook me-3 text-primary fs-4"></i></Link>
+              <Link to=""><i className="fa-brands fa-youtube text-danger fs-4"></i></Link>
             </li>
           </ul>
         </div>

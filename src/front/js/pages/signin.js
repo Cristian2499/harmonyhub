@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import "../../styles/signin.css";
+import 'animate.css';
 import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 import bgImage from "../../img/fondo-signin.jpg";
 import { Link, useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import React from 'react'
-import "../../styles/cardconnect.css";
+import "../../styles/card-connect.css";
 
 const CardConnect = ({name, imageCardConnect}) => {
   return (
