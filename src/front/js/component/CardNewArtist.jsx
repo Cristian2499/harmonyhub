@@ -1,6 +1,7 @@
 import React from "react";
-import "../../styles/cardnewartist.css";
+import "../../styles/card-new-artist.css";
 import ondasSonido from "../../img/img-new-artist/ondas-sonido.png";
+import { Link } from "react-router-dom";
 
 const CardNewArtist = ({ name, imageNewArtist }) => {
   return (
@@ -8,7 +9,7 @@ const CardNewArtist = ({ name, imageNewArtist }) => {
       <div className="text-white fs-5 mb-1">{name}</div>
       <div className="d-flex">
         <img className="img-new-artist" src={imageNewArtist} alt="" />
-        <div className="base-play bg-light d-flex justify-content-center align-items-center" style={{ backgroundImage: `url(${ondasSonido})`}}>
+        <div className="base-play bg-light d-flex justify-content-center align-items-center" style={{ backgroundImage: `url(${ondasSonido})` }}>
           <button className="btn-play">
             <i className="fa-solid fa-play fs-1"></i>
           </button>
@@ -21,9 +22,10 @@ const CardNewArtist = ({ name, imageNewArtist }) => {
         <button className="btn-user-plus">
           <i className="fa-solid fa-user-plus"></i>
         </button>
-        <button className="btn-connect p- ms-auto fw-semibold">
+        <Link to="/signup"><button className="btn-connect p- ms-auto fw-semibold">
           Connect
         </button>
+        </Link>
       </div>
     </div>
   );

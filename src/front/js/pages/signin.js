@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/signin.css";
+import 'animate.css';
 import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 import bgImage from "../../img/fondo-signin.jpg";
 import { Link } from "react-router-dom";

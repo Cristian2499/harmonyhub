@@ -1,10 +1,29 @@
-.base-sidebar{
-    width: 290px;
-    height: 100vh;
+.base-sidebar {
+  width: 20rem;
+  min-height: 100%;
 }
 
-.img-user{
-    width: 100%;
+.img-user {
+  width: 100%;
 }
 
+.sidebar-list {
+  text-decoration: none;
+  list-style: none;
+}
 
+.link-sidebar {
+  color: gray;
+  list-style: none;
+  text-decoration: none;
+}
+
+.link-sidebar:hover {
+  color: #55515c;
+  background: #e3dfe9;
+}
+
+.link-sidebar:focus {
+  color: #55515c;
+  background: #e3dfe9;
+}

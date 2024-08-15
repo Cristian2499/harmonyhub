@@ -1,0 +1,11 @@
+.card-explore{
+    width: 25.7rem;
+    height: auto;
+}
+
+@media (min-width: 1921px) {
+    .card-explore{
+      width: 35rem;
+    }
+    
+  }

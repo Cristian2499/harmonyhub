@@ -5,10 +5,10 @@ import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 
 const Sidebar = () => {
     return (
-        <div className='base-sidebar d-flex flex-column flex-shrink-0 p-3 bg-light'>
+        <div className='base-sidebar d-flex flex-column align-items-center  border-end'>
 
-            <ul className='sidebar-list flex-column mb-auto bg-info'>
-                <li className='d-flex row align-items-center'>
+            <ul className='sidebar-list p-3 d-flex flex-column'>
+                <li className='d-flex row align-items-center my-2'>
                     <div className='col-3'>
                         <img className='img-user' src={logoHarmonyHub}></img>
                     </div>
@@ -17,11 +17,21 @@ const Sidebar = () => {
                         <span>Connected</span>
                     </div>
                 </li>
-                <Link to="#"><li className='fs-5 mt-3 ms-3'><i className="fa-solid fa-house me-3"></i></li><span>Home</span></Link>
-                <Link to="#"><li className='fs-5 mt-3 ms-3'><i className="fa-solid fa-magnifying-glass me-3"></i><span>Search New People</span></li></Link>
-                <Link to="#"><li className='fs-5 mt-3 ms-3'><i className="fa-regular fa-message me-3"></i><span>Message</span></li></Link>
-                <Link to="#"><li className='fs-5 mt-3 ms-3'><i className="fa-solid fa-bell me-3"></i><span>Notifications</span></li></Link>
-                <Link to="#"><li className='fs-5 mt-3 ms-3'><i className="fa-solid fa-user me-3"></i><span>My Profile</span></li></Link>
+                <li className='sidebar-item fs-4 mt-3'>
+                    <Link className='link-sidebar d-flex align-items-center ps-3 py-1 w-100' to="#"><i className="fa-solid fa-house me-3"></i>Home</Link>
+                </li>
+                <li className='sidebar-item fs-4 mt-3'>
+                    <Link className='link-sidebar d-flex align-items-center ps-3 py-1 w-100' to="#"><i className="fa-solid fa-magnifying-glass me-3"></i>Search New People</Link>
+                </li>
+                <li className='sidebar-item fs-4 mt-3'>
+                    <Link className='link-sidebar d-flex align-items-center ps-3 py-1 w-100' to="#"><i className="fa-regular fa-message me-3"></i>Message</Link>
+                </li>
+                <li className='sidebar-item fs-4 mt-3'>
+                    <Link className='link-sidebar d-flex align-items-center ps-3 py-1 w-100' to="#"><i className="fa-solid fa-bell me-3"></i>Notifications</Link>
+                </li>
+                <li className='sidebar-item fs-4 mt-3'>
+                    <Link className='link-sidebar d-flex align-items-center ps-3 py-1 w-100' to="#"><i className="fa-solid fa-user me-3"></i>My Profile</Link>
+                </li>
             </ul>
         </div>
     )
