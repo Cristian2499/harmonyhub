@@ -137,6 +137,8 @@ def login():
             return jsonify({"error": "password and email required"}), 400
         
         user = User.query.filter_by(email=email).first()
+        print(user)
+        print(email)
         if user is None:
             return jsonify({"error": "Email or password wrong"}), 404
         
@@ -145,7 +147,7 @@ def login():
 
 
         auth_token = create_access_token({"id": user.id, "email": user.email})
-        return jsonify({"token": auth_token}), 500
+        return jsonify({"token": auth_token}), 200
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500

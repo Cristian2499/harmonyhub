@@ -1,44 +1,58 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			token: null,
 		},
 		actions: {
-			register: async (email,password,name,lastname,nickname,gender,country) => {
-				console.log(email,password,name,lastname,nickname,gender,country);
+			register: async (email, password, name, lastname, nickname, gender, country) => {
+				console.log(email, password, name, lastname, nickname, gender, country);
 				try {
 					const response = await fetch(
-						process.env.BACKEND_URL + "/api/register",
+						`${process.env.BACKEND_URL}/api/register`,
 						{
 							method: "POST",
 							headers: { 
-								"Content-type": "application/json",
+								"Content-Type": "application/json",
 							},
-							body: JSON.stringify({email:email,password:password,name:name,lastname:lastname,nickname:nickname,gender:gender,country:country}),
-						}	
+							body: JSON.stringify({email, password, name, lastname, nickname, gender, country}),
+						}   
 					);
 					if (!response.ok) {
+						console.error('Error en la solicitud:', response.statusText);
 						return false;
 					}
 					const data = await response.json();
 					console.log(data);
-					return data;
+					return true;
 				} catch (error) {
-					console.log(error);
+					console.error('Error en la solicitud:', error);
 				}
-			},		
+			},
+
+			login: async (email, password) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/login`,
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({email,password})
+					}
+					)
+					if(!response.ok){
+						return false;
+					}
+					const data = await response.json();
+					console.log(data);
+					localStorage.setItem("token", data.token);
+					setStore({token: data.token});
+					return true; 
+				}catch (error) {
+					console.error('Error en la solicitud:', error);
+				}
+
+			}
 	
 		}
 	};

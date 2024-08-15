@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "../../styles/signin.css";
 import 'animate.css';
 import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 import bgImage from "../../img/fondo-signin.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Signin = () => {
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmitSignin = async (e) => {
+    e.preventDefault();
+    const response = await actions.login(email, password);
+    if (response) {
+      navigate("/");
+    }
+  };
+  
   return (
     <div
       className="fondo-signin animate__animated animate__fadeIn vh-100 d-flex justify-content-center align-items-center"
@@ -20,7 +33,10 @@ export const Signin = () => {
           </Link>
         </div>
         <img className="img-brand-signin m-4" src={logoHarmonyHub} />
-        <form className="w-75 d-flex flex-column align-items-center">
+        <form
+          onSubmit={handleSubmitSignin}
+          className="w-75 d-flex flex-column align-items-center"
+        >
           <div className="mb-3 w-75">
             <input
               type="email"
@@ -28,6 +44,8 @@ export const Signin = () => {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-3 w-75">
@@ -36,6 +54,8 @@ export const Signin = () => {
               className="input-password form-control"
               id="exampleInputPassword1"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
