@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import bgImage from "../../img/morenito.png";
 import "../../styles/signup.css";
+import 'animate.css';
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 
 const Signup = () => {
   const { store, actions } = useContext(Context);
@@ -54,12 +56,12 @@ const Signup = () => {
   };
 
   return (
-    <div className="body d-flex row vh-100 p-0 m-0" style={{ backgroundImage: `url(${bgImage})` }}>
+    <div className="body d-flex row vh-100 p-0 m-0 animate__animated animate__fadeIn" style={{ backgroundImage: `url(${bgImage})` }}>
       
       <div className="form-container flex-column text-white p-5  col-lg-6 align-content-center">
         <div className="d-flex container-fluid justify-content-center px-0 mx-0"><h2 className="welcome fw-bold">Welcome to Harmony Hub!</h2></div>
-        <div className="d-flex container-fluid justify-content-center px-0 mt-3"><h3 className="create">Create Your Account</h3></div>
-        <div className="form-content container mt-3">
+        <div className="d-flex container-fluid justify-content-center px-0 mt-2"><h3 className="create">Create Your Account</h3></div>
+        <div className="form-content container mt-2">
           <form className="d-flex row justify-content-around" onSubmit={handleSubmitRegister}>
             <div className="d-flex row gap-3 justify-content-between">
               <input
@@ -150,6 +152,9 @@ const Signup = () => {
           </p>
           </div>
         </div>
+      </div>
+      <div className="d-flex justify-content-end align-items-end">
+      <Link to="/"><img className="img-brand-signup me-4 mb-4" src={logoHarmonyHub} /></Link>
       </div>
     </div>
   );
