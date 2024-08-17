@@ -1,0 +1,14 @@
+.card-explore-search {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 1921px) {
+  .card-explore-search {
+    width: 35rem;
+  }
+}
+.btn-create-account {
+  width: 20%;
+}
+
