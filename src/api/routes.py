@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole
+from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -151,3 +151,15 @@ def login():
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
+
+#crear ,borrar, editar
+@api.route("/song/<int:id>", methods=["GET"])
+def get_song_by_id(id):
+    try:
+        song = Song.query.get(id)
+        return jsonify({"song": song.serialize()})
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}),500
+    
+#agregar likes y borrarlos
