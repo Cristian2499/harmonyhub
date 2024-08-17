@@ -22,7 +22,7 @@ const CardNewArtist = ({ name, imageNewArtist }) => {
         <button className="btn-user-plus">
           <i className="fa-solid fa-user-plus"></i>
         </button>
-        <Link to="/signup"><button className="btn-connect p- ms-auto fw-semibold">
+        <Link className="ms-auto" to="/signup"><button className="btn-connect fw-semibold">
           Connect
         </button>
         </Link>
