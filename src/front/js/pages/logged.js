@@ -5,16 +5,19 @@ import { NavbarLogged } from "../component/NavbarLogged.jsx";
 import { Footer } from "../component/Footer.jsx";
 import CardArtistPageLogged from "../component/CardArtistPageLogged.jsx";
 import CardExplore from "../component/CardExplore.jsx";
+import SearchBar from "../component/SearchBar.jsx";
 
 export const Logged = () => {
   return (
     <div>
       <NavbarLogged />
+      
       <div className="d-flex">
         <div>
           <Sidebar />
         </div>
         <div className="d-flex row m-4 gap-3">
+        <SearchBar/>
           <span className="fs-2 ps-0 fw-bold">Emerging Artists</span>
           <CardArtistPageLogged />
           <CardArtistPageLogged />
