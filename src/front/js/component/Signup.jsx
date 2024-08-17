@@ -57,7 +57,7 @@ const Signup = () => {
 
   return (
     <div className="body d-flex row vh-100 p-0 m-0 animate__animated animate__fadeIn" style={{ backgroundImage: `url(${bgImage})` }}>
-      
+
       <div className="form-container flex-column text-white p-5  col-lg-6 align-content-center">
         <div className="d-flex container-fluid justify-content-center px-0 mx-0"><h2 className="welcome fw-bold">Welcome to Harmony Hub!</h2></div>
         <div className="d-flex container-fluid justify-content-center px-0 mt-2"><h3 className="create">Create Your Account</h3></div>
@@ -142,19 +142,19 @@ const Signup = () => {
             </div>
             <div className="container-fluid d-flex justify-content-center">
               <button className="btn-register mb-2 mt-4" type="submit">
-                Create Accound
+                Create Account
               </button>
             </div>
           </form>
           <div className="d-flex justify-content-center align-items-center ">
-          <p>
-            Already have an account? <Link className="link-dark link-underline-opacity-25 link-underline-opacity-100-hover" to="/signin">Sign in</Link>
-          </p>
+            <p>
+              Already have an account? <Link className="link-dark link-underline-opacity-25 link-underline-opacity-100-hover" to="/signin">Sign in</Link>
+            </p>
           </div>
         </div>
       </div>
       <div className="d-flex justify-content-end align-items-end">
-      <Link to="/"><img className="img-brand-signup me-4 mb-4" src={logoHarmonyHub} /></Link>
+        <Link to="/"><img className="img-brand-signup me-4 mb-4" src={logoHarmonyHub} /></Link>
       </div>
     </div>
   );
