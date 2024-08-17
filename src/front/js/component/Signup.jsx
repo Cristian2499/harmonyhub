@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
 import bgImage from "../../img/morenito.png";
 import "../../styles/signup.css";
+import 'animate.css';
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 
 const Signup = () => {
   const { store, actions } = useContext(Context);
@@ -53,95 +56,105 @@ const Signup = () => {
   };
 
   return (
-    <div className="body" style={{ backgroundImage: `url(${bgImage})` }}>
-      <h1>Welcome to Harmony Hub!</h1>
-      <h2>Create Your Account</h2>
-      <div className="form-container">
-        <div className="form-content">
-          <form onSubmit={handleSubmitRegister}>
-            <input
-              className="input-register"
-              type="text"
-              placeholder="Name"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              className="input-register"
-              type="text"
-              placeholder="Lastname"
-              required
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
-            />
-            <input
-              className="input-register"
-              type="text"
-              placeholder="Nickname"
-              required
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-            />
-            <input
-              className="input-register"
-              type="email"
-              placeholder="Email address"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              className="input-register"
-              type="password"
-              placeholder="Password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <select
-              id="gender-select"
-              className="form-select"
-              value={gender}
-              onChange={handleChange}
-              aria-label="Default select example"
-            >
-              <option value="" disabled>
-                Select your gender
-              </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Others">Others</option>
-            </select>
-            <select
-              id="country-select"
-              className="form-select"
-              value={country}
-              onChange={handleChangeCountry}
-              aria-label="Default select example"
-            >
-              <option value="" disabled>
-                Select your country
-              </option>
-              <option value="Colombia-Bogota">Colombia-Bogota</option>
-              <option value="Venezuela-Caracas">Venezuela-Caracas</option>
-              <option value="Ecuador-Quito">Ecuador-Quito</option>
-              <option value="Peru-Lima">Peru-Lima</option>
-              <option value="Bolivia-La paz">Bolivia-La paz</option>
-              <option value="Mexico-CDMX">Mexico-CDMX</option>
-              <option value="Chile-Santiago">Chile-Santiago</option>
-              <option value="Paraguay-Asuncion">Paraguay-Asuncion</option>
-              <option value="Uruguay-Montevideo">Uruguay-Montevideo</option>
-              <option value="Argentina-BSAS">Argentina-BSAS</option>
-            </select>
-            <button className="btn-register" type="submit">
-              Registrarse
-            </button>
+    <div className="body d-flex row vh-100 p-0 m-0 animate__animated animate__fadeIn" style={{ backgroundImage: `url(${bgImage})` }}>
+      
+      <div className="form-container flex-column text-white p-5  col-lg-6 align-content-center">
+        <div className="d-flex container-fluid justify-content-center px-0 mx-0"><h2 className="welcome fw-bold">Welcome to Harmony Hub!</h2></div>
+        <div className="d-flex container-fluid justify-content-center px-0 mt-2"><h3 className="create">Create Your Account</h3></div>
+        <div className="form-content container mt-2">
+          <form className="d-flex row justify-content-around" onSubmit={handleSubmitRegister}>
+            <div className="d-flex row gap-3 justify-content-between">
+              <input
+                className="input-register"
+                type="text"
+                placeholder="Name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                className="input-register"
+                type="text"
+                placeholder="Lastname"
+                required
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
+              />
+              <input
+                className="input-register"
+                type="text"
+                placeholder="Nickname"
+                required
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value)}
+              />
+              <input
+                className="input-register"
+                type="email"
+                placeholder="Email address"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                className="input-register"
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <select
+                id="gender-select"
+                className="select-register"
+                value={gender}
+                onChange={handleChange}
+                aria-label="Default select example"
+              >
+                <option value="" disabled>
+                  Select your gender
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+              </select>
+              <select
+                id="country-select"
+                className="select-register"
+                value={country}
+                onChange={handleChangeCountry}
+                aria-label="Default select example"
+              >
+                <option value="" disabled>
+                  Select your country
+                </option>
+                <option value="Colombia-Bogota">Colombia-Bogota</option>
+                <option value="Venezuela-Caracas">Venezuela-Caracas</option>
+                <option value="Ecuador-Quito">Ecuador-Quito</option>
+                <option value="Peru-Lima">Peru-Lima</option>
+                <option value="Bolivia-La paz">Bolivia-La paz</option>
+                <option value="Mexico-CDMX">Mexico-CDMX</option>
+                <option value="Chile-Santiago">Chile-Santiago</option>
+                <option value="Paraguay-Asuncion">Paraguay-Asuncion</option>
+                <option value="Uruguay-Montevideo">Uruguay-Montevideo</option>
+                <option value="Argentina-BSAS">Argentina-BSAS</option>
+              </select>
+            </div>
+            <div className="container-fluid d-flex justify-content-center">
+              <button className="btn-register mb-2 mt-4" type="submit">
+                Create Accound
+              </button>
+            </div>
           </form>
+          <div className="d-flex justify-content-center align-items-center ">
           <p>
-            Already have an account? <a href="#">Sign in</a>
+            Already have an account? <Link className="link-dark link-underline-opacity-25 link-underline-opacity-100-hover" to="/signin">Sign in</Link>
           </p>
+          </div>
         </div>
+      </div>
+      <div className="d-flex justify-content-end align-items-end">
+      <Link to="/"><img className="img-brand-signup me-4 mb-4" src={logoHarmonyHub} /></Link>
       </div>
     </div>
   );
