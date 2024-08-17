@@ -24,7 +24,7 @@ export const Signin = () => {
       className="fondo-signin animate__animated animate__fadeIn vh-100 d-flex justify-content-center align-items-center"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <div className="base-form bg-white flex-column d-flex justify-content-center align-items-center w-75 pb-5 pt-3 rounded">
+      <div className="base-form bg-white flex-column d-flex justify-content-center align-items-center w-50 pb-5 pt-3 rounded">
         <div className="container-fluid d-flex justify-content-end">
           <Link to="/">
             <button className="btn ">
