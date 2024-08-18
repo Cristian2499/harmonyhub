@@ -8,6 +8,7 @@ import Signup from "./component/Signup.jsx";
 import { Signin } from "./pages/signin.js";
 import { Logged } from "./pages/logged.js";
 import Search from "./pages/search";
+import Connected from "./pages/connected";
 
 //create your first component
 const Layout = () => {
@@ -28,6 +29,7 @@ const Layout = () => {
             <Route element={<Logged />} path="/logged" />
             <Route element={<Signin />} path="/signin" />
             <Route element={<Search />} path="/search" />
+            <Route element={<Connected />} path="/connected" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
