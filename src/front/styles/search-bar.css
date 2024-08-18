@@ -1,0 +1,17 @@
+.search {
+    padding: 0.5em;
+    border: none;
+    background: #9296f0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .search:hover {
+    transform: scale(1.05);
+  }
+  
+  .search:active {
+    transform: scale(1);
+  }

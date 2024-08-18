@@ -17,7 +17,7 @@ export const Logged = () => {
           <Sidebar />
         </div>
         <div className="d-flex row m-4 gap-3">
-        <SearchBar/>
+        
           <span className="fs-2 ps-0 fw-bold">Emerging Artists</span>
           <CardArtistPageLogged />
           <CardArtistPageLogged />

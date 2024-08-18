@@ -19,7 +19,7 @@ const CardExploreSearch = () => {
                     </div>
                 </div>
                 <Link to="/person" className='d-flex container-fluid justify-content-end'>
-                <button className="btn-create-account ">Look Profile</button>
+                <button className="btn-look-profile">Look Profile</button>
                 </Link>
             </div>
         </div>
