@@ -16,7 +16,9 @@ const Search = () => {
         </div>
         <div className="d-flex container-fluid justify-content-center row m-4 gap-3">
           <span className="fs-2 ps-0 fw-bold">Look for new Band Members</span>
-          <div className="d-flex align-items-center p-2 mb-2"><SearchBar/></div>
+          <div className="d-flex align-items-center p-2 mb-2">
+            <SearchBar />
+          </div>
           <div className="w-75">
             <CardExploreSearch />
             <CardExploreSearch />
