@@ -153,6 +153,27 @@ def login():
         return jsonify({"error": f"{error}"}), 500
 
 #crear ,borrar, editar
+@api.route("/like/song/<int:song_id>", methods=["POST"])
+@jwt_required()
+def create_like_song(song_id):
+    try:
+        body = request.json
+        user_data = get_jwt_identity()
+        song_exist = Song.query.get(song_id)
+        if song_exist is None:
+            return jsonify({"error": f"song not found"}), 404
+
+        like_song = TrackLikes(user_id=user_data["id"], song_id=song_id)
+
+        db.session.add(like_song)
+        db.session.commit()
+        db.session.refresh(like_song)
+
+        return jsonify({"like_song": like_song.serialize()}), 201
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+
 @api.route("/song/<int:id>", methods=["GET"])
 def get_song_by_id(id):
     try:
@@ -161,5 +182,21 @@ def get_song_by_id(id):
 
     except Exception as error:
         return jsonify({"error": f"{error}"}),500
+
+@api.route("/like/song/<int:song_id>", methods=["DELETE"])
+@jwt_required()
+def delete_like_song(song_id):
+    try:
+        user_data = get_jwt_identity()
+        song = TrackLikes.query.filter_by(song_id=song_id, user_id=user_data["id"])
+        if song is None:
+            return jsonify({"error": "song not found"}), 404
     
+        db.session.delete(song)
+        db.session.commit()
+
+        return jsonify({"msg": "song delete"}), 200
+    
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
 #agregar likes y borrarlos
