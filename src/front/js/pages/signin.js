@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "../../styles/signin.css";
-import 'animate.css';
+import "animate.css";
 import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 import bgImage from "../../img/fondo-signin.jpg";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ export const Signin = () => {
       navigate("/logged");
     }
   };
-  
+
   return (
     <div
       className="fondo-signin animate__animated animate__fadeIn vh-100 d-flex justify-content-center align-items-center"
@@ -62,7 +62,7 @@ export const Signin = () => {
           <button type="submit" className="btn-login">
             Login
           </button>
-          <Link className="mb-4" to="/">
+          <Link className="mb-4" to="/signin">
             Forgot password?
           </Link>
           <span className="mb-1">Don't have an account? Sign up</span>

@@ -37,7 +37,7 @@ class User(db.Model):
     country = db.Column(db.Enum(Country), unique=False, nullable=False)
     description = db.Column(db.String(500), unique=False, nullable=True) #nuevo
     songs = db.relationship("Song", backref="user", lazy=True)
-    likes = db.relationship("TrackLikes", backref="user", lazy=Trues)
+    likes = db.relationship("TrackLikes", backref="user", lazy=True)
 
     def __repr__(self):
         return f'<User {self.email}>'

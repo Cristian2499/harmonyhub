@@ -1,52 +1,54 @@
-.fondo-signin{
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.fondo-signin {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.img-brand-signin{
-    width: 6rem;
+.img-brand-signin {
+  width: 6rem;
 }
 
-.input-email:focus{
-    box-shadow: none;
-    border: solid;
-    border-color: #9296f0;
+.input-email:focus {
+  box-shadow: none;
+  border: solid;
+  border-color: #9296f0;
 }
 
-.input-password:focus{
-    box-shadow: none;
-    border: solid;
-    border-color: #9296f0;
+.input-password:focus {
+  box-shadow: none;
+  border: solid;
+  border-color: #9296f0;
 }
 
-.btn-create-account, .btn-login {
-    
-    padding: 0.5em;
-    border: none;
-    background: #9296f0;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .btn-create-account:hover, .btn-login:hover {
-    transform: scale(1.05);
-  }
-  
-  .btn-create-account:active, .btn-login:active {
-    transform: scale(1);
-  }
+.btn-create-account,
+.btn-login {
+  padding: 0.5em;
+  border: none;
+  background: #9296f0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-  .btn-login{
-    width: 30%;
-  }
+.btn-create-account:hover,
+.btn-login:hover {
+  transform: scale(1.05);
+}
 
-  .btn-create-account{
-    width: 100%;
-  }
+.btn-create-account:active,
+.btn-login:active {
+  transform: scale(1);
+}
 
-  .scale-btn{
-    width: 30%;
-  }
+.btn-login {
+  width: 30%;
+}
+
+.btn-create-account {
+  width: 100%;
+}
+
+.scale-btn {
+  width: 30%;
+}

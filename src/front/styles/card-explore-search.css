@@ -8,7 +8,24 @@
     width: 35rem;
   }
 }
-.btn-create-account {
+.btn-look-profile {
   width: 20%;
 }
 
+.btn-look-profile {
+  padding: 0.5em;
+  border: none;
+  background: #9296f0;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-look-profile:hover {
+  transform: scale(1.05);
+}
+
+.btn-look-profile:active {
+  transform: scale(1);
+}
