@@ -38,6 +38,7 @@ class User(db.Model):
     description = db.Column(db.String(500), unique=False, nullable=True) #nuevo
     songs = db.relationship("Song", backref="user", lazy=True)
     likes = db.relationship("TrackLikes", backref="user", lazy=True)
+    connect = db.relationship("ConnectUsers", backref="user", lazy=True)
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -165,4 +166,18 @@ class TrackLikes(db.Model):
             "id": self.id, 
             "user_id": self.user_id, 
             "song_id": self.song_id,
+        }
+
+class ConnectUsers(db.Model):
+    __tablename__ = "connect_users"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
+    def __repr__(self):
+        return f'<ConnectUsers user: {self.user_id}>'
+    
+    def serialize(self):
+        return {
+            "id": self.id, 
+            "user_id": self.user_id,
         }

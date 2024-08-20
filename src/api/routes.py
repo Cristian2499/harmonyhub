@@ -15,7 +15,7 @@ CORS(api)
 
 
 @api.route('/register', methods=['POST'])
-def regsiter_new_user():
+def register_new_user():
     try: 
         body = request.json
         email = body.get("email", None)

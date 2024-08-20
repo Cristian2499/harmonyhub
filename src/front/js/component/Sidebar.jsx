@@ -52,7 +52,7 @@ const Sidebar = () => {
         <li className="sidebar-item fs-4 mt-3">
           <Link
             className="link-sidebar d-flex align-items-center ps-3 py-1 w-100"
-            to="#"
+            to="/myprofile"
           >
             <i className="fa-solid fa-user me-3"></i>My Profile
           </Link>
