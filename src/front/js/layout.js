@@ -9,6 +9,7 @@ import { Signin } from "./pages/signin.js";
 import { Logged } from "./pages/logged.js";
 import Search from "./pages/search";
 import Connected from "./pages/connected";
+import ContactUs from "./pages/contactus";
 import { MyProfile } from "./pages/myProfile.js";
 
 //create your first component
@@ -23,7 +24,7 @@ const Layout = () => {
   return (
     <div>
       <BrowserRouter basename={basename}>
-        <ScrollToTop>  
+        <ScrollToTop>
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Signup />} path="/signup" />
@@ -32,6 +33,7 @@ const Layout = () => {
             <Route element={<MyProfile/>} path="/myprofile"/>
             <Route element={<Search />} path="/search" />
             <Route element={<Connected />} path="/connected" />
+            <Route element={<ContactUs />} path="/contactus" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
