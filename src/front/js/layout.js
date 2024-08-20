@@ -9,6 +9,7 @@ import { Signin } from "./pages/signin.js";
 import { Logged } from "./pages/logged.js";
 import Search from "./pages/search";
 import Connected from "./pages/connected";
+import { MyProfile } from "./pages/myProfile.js";
 
 //create your first component
 const Layout = () => {
@@ -28,6 +29,7 @@ const Layout = () => {
             <Route element={<Signup />} path="/signup" />
             <Route element={<Logged />} path="/logged" />
             <Route element={<Signin />} path="/signin" />
+            <Route element={<MyProfile/>} path="/myprofile"/>
             <Route element={<Search />} path="/search" />
             <Route element={<Connected />} path="/connected" />
             <Route element={<h1>Not found!</h1>} />
