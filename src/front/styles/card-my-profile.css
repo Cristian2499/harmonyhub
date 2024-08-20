@@ -1,0 +1,11 @@
+.base-card-profile{
+    width: 19rem;
+    height: auto;
+}
+
+@media (min-width: 1921px) {
+    .base-card-profile{
+      width: 26rem;
+    }
+    
+  }
