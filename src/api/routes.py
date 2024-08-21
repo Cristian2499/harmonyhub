@@ -152,7 +152,56 @@ def login():
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-#crear ,borrar, editar
+#obtener cancines (sirve),crear canciones(sirve),borrar cancion (sirve), editar
+@api.route("/song/<int:id>", methods=["GET"])
+def get_song_by_id(id):
+    try:
+        song = Song.query.get(id)
+        return jsonify({"song": song.serialize()})
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}),500
+
+@api.route("/song", methods=["POST"])
+@jwt_required()
+def create_song():
+    try:
+        body = request.json
+        user_data = get_jwt_identity()
+        name = body.get("name", None)
+        description = body.get("description", None)
+        if name is None or description is None:
+            return jsonify({"error": "all the fields must be completed"}), 400
+        
+        song = Song(user_id=user_data["id"], name=name, description=description)
+
+        db.session.add(song)
+        db.session.commit()
+        db.session.refresh(song)
+
+        return jsonify({"msg": f"{name} created!"}), 201
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+    
+@api.route("/song/<int:song_id>", methods=["DELETE"])
+@jwt_required()
+def delete_song(song_id):
+    try:
+        user_data = get_jwt_identity()
+        song = Song.query.filter_by(user_id=user_data["id"]).filter_by(id=song_id).first()
+        if song is None:
+            return jsonify({"error": "song not found"}), 404
+        
+        db.session.delete(song)
+        db.session.commit()
+
+        return jsonify({"msg": "song delete"}), 200
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+    
+#agregar likes (sirve)y borrarlos (50%)
 @api.route("/like/song/<int:song_id>", methods=["POST"])
 @jwt_required()
 def create_like_song(song_id):
@@ -174,15 +223,6 @@ def create_like_song(song_id):
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-@api.route("/song/<int:id>", methods=["GET"])
-def get_song_by_id(id):
-    try:
-        song = Song.query.get(id)
-        return jsonify({"song": song.serialize()})
-
-    except Exception as error:
-        return jsonify({"error": f"{error}"}),500
-
 @api.route("/like/song/<int:song_id>", methods=["DELETE"])
 @jwt_required()
 def delete_like_song(song_id):
@@ -199,4 +239,3 @@ def delete_like_song(song_id):
     
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
-#agregar likes y borrarlos
