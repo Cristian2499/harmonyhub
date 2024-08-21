@@ -7,6 +7,24 @@
     height: 12rem;
 }
 
-.base-form-edit{
-    height: 23rem;
+.statistic-item{
+    color: #9296f0;
 }
+
+.btn-upload {
+    padding: 0.5em;
+    border: none;
+    background: #9296f0;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-upload:hover {
+    transform: scale(1.05);
+  }
+  
+  .btn-upload:active {
+    transform: scale(1);
+  }

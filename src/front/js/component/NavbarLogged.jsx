@@ -7,7 +7,7 @@ export const NavbarLogged = () => {
     return (
         <nav className="navbar container-fluid navbar-expand-lg sticky-top">
             <div className="container-fluid">
-                <Link to="/logged" className="link-home d-flex align-items-center">
+                <Link to="/dashboard" className="link-home d-flex align-items-center">
                     <img className="img-brand" src={logoHarmonyHub} />
                     <span className="navbar-brand mb-0 ms-1 fs-3">Harmony Hub</span>
                 </Link>
