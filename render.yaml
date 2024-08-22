@@ -4,13 +4,15 @@
 services:
     - type: web # valid values: https://render.com/docs/yaml-spec#type
       region: ohio
-      name: sample-service-name
+      name: harmonyhub
       env: python # valid values: https://render.com/docs/yaml-spec#environment
       buildCommand: "./render_build.sh"
       startCommand: "gunicorn wsgi --chdir ./src/"
       plan: free # optional; defaults to starter
       numInstances: 1
       envVars:
+          - key: DEBUG # Imported from Heroku app
+            value: FALSE
           - key: BASENAME # Imported from Heroku app
             value: /
           - key: FLASK_APP # Imported from Heroku app
