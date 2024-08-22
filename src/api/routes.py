@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes
+from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Follow
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -152,7 +152,7 @@ def login():
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-#obtener cancines (sirve),crear canciones(sirve),borrar cancion (sirve), editar
+#obtener cancines (sirve),crear canciones(sirve),borrar cancion (sirve)
 @api.route("/song/<int:id>", methods=["GET"])
 def get_song_by_id(id):
     try:
@@ -201,13 +201,16 @@ def delete_song(song_id):
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
     
-#agregar likes (sirve)y borrarlos (50%)
+#agregar likes (sirve)y borrarlos (sirve)
 @api.route("/like/song/<int:song_id>", methods=["POST"])
 @jwt_required()
 def create_like_song(song_id):
     try:
         body = request.json
         user_data = get_jwt_identity()
+        song_like = TrackLikes.query.filter_by(user_id=user_data["id"], song_id=song_id).first()
+        if song_like:
+            return jsonify({"error": f"song already exist in your likes"}), 409
         song_exist = Song.query.get(song_id)
         if song_exist is None:
             return jsonify({"error": f"song not found"}), 404
@@ -228,14 +231,61 @@ def create_like_song(song_id):
 def delete_like_song(song_id):
     try:
         user_data = get_jwt_identity()
-        song = TrackLikes.query.filter_by(song_id=song_id, user_id=user_data["id"])
-        if song is None:
+        song_like = TrackLikes.query.filter_by(user_id=user_data["id"], song_id=song_id).first()
+        if song_like is None:
             return jsonify({"error": "song not found"}), 404
     
-        db.session.delete(song)
+        db.session.delete(song_like)
         db.session.commit()
 
-        return jsonify({"msg": "song delete"}), 200
+        return jsonify({"msg": "song like delete"}), 200
     
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+
+#follow
+
+@api.route("/follow/<int:user_to_id>" , methods=["POST"])
+@jwt_required()
+def follow_user(user_to_id):
+    try:
+        user_data = get_jwt_identity()
+        user_exist = User.query.get(user_to_id)
+        if user_exist is None:
+            return jsonify({"error": f"user not found"}), 404
+        
+        already_followed = Follow.query.filter_by(user_from_id=user_data["id"], user_to_id=user_to_id).first()
+        if already_followed is not None:
+            return jsonify({"error": f"user already followed"}), 400
+        
+        follow = Follow(user_from_id=user_data["id"], user_to_id=user_to_id)
+
+        db.session.add(follow)
+        db.session.commit()
+        db.session.refresh(follow)
+
+        return jsonify({"user followed": follow.serialize()}), 200
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
+
+@api.route("/follow/<int:user_to_id>", methods=["DELETE"])
+@jwt_required()
+def delete_follower(user_to_id):
+    try:
+        user_data = get_jwt_identity()
+        user_exist = User.query.get(user_to_id)
+        if user_exist is None:
+            return jsonify({"error": f"user not found"}), 404
+        
+        followed_user = Follow.query.filter_by(user_from_id = user_data["id"], user_to_id=user_to_id).first()
+        if followed_user is None:
+            return jsonify({"msg": "user is not followed"}), 400
+
+        db.session.delete(followed_user)
+        db.session.commit()
+
+        return jsonify({"msg": "user has been unfollowed"}), 200
+
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
