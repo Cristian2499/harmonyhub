@@ -6,11 +6,11 @@ import { Home } from "./pages/home";
 import injectContext from "./store/appContext";
 import Signup from "./component/Signup.jsx";
 import { Signin } from "./pages/signin.js";
-import { Logged } from "./pages/logged.js";
 import Search from "./pages/search";
 import Connected from "./pages/connected";
 import ContactUs from "./pages/contactus";
 import { MyProfile } from "./pages/myProfile.js";
+import { Dashboard } from "./pages/dashboard.js";
 
 //create your first component
 const Layout = () => {
@@ -28,7 +28,7 @@ const Layout = () => {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<Signup />} path="/signup" />
-            <Route element={<Logged />} path="/logged" />
+            <Route element={<Dashboard />} path="/dashboard" />
             <Route element={<Signin />} path="/signin" />
             <Route element={<MyProfile/>} path="/myprofile"/>
             <Route element={<Search />} path="/search" />

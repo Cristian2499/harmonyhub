@@ -5,11 +5,11 @@ import { NavbarLogged } from "../component/NavbarLogged.jsx";
 import { Footer } from "../component/Footer.jsx";
 import CardArtistPageLogged from "../component/CardArtistPageLogged.jsx";
 import CardExplore from "../component/CardExplore.jsx";
-import SearchBar from "../component/SearchBar.jsx";
 
-export const Logged = () => {
+
+export const Dashboard = () => {
   return (
-    <div>
+    <div className="animate__animated animate__fadeIn">
       <NavbarLogged />
       
       <div className="d-flex">
