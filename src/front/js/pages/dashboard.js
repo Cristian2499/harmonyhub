@@ -17,12 +17,13 @@ export const Dashboard = () => {
         <div>
           <Sidebar />
         </div>
-        <div className="d-flex row m-4 gap-4">
         
+        <div className="d-flex row m-4 gap-4"> 
           <span className="fs-2 ps-0 fw-bold">Emerging Artists</span>
-          <CardArtistPageLogged />
-          
 
+            <CardArtistPageLogged />
+          
+          
           <span className="fs-2 ps-0 fw-bold">Explore</span>
 
           <CardExplore/>

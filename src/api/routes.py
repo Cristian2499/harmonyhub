@@ -137,17 +137,24 @@ def login():
             return jsonify({"error": "password and email required"}), 400
         
         user = User.query.filter_by(email=email).first()
-        print(user)
-        print(email)
-        if user is None:
-            return jsonify({"error": "Email or password wrong"}), 404
-        
-        if not check_password_hash(user.password, password):
+        if user is None or not check_password_hash(user.password, password):
             return jsonify({"error": "Email or password wrong"}), 400
 
-
         auth_token = create_access_token({"id": user.id, "email": user.email})
-        return jsonify({"token": auth_token}), 200
+        
+        # Incluir datos del usuario en la respuesta
+        return jsonify({
+            "token": auth_token,
+            "user": {
+                "id": user.id,
+                "email": user.email,
+                "name": user.name,
+                "lastname": user.lastname,
+                "nickname": user.nickname,
+                "gender": user.gender.name,
+                "country": user.country.name
+            }
+        }), 200
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
@@ -330,3 +337,23 @@ def get_all_users():
         'songs': [song.title for song in user.songs],
         'likes': [like.track.title for like in user.likes]
     } for user in users])
+@api.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.get_json()
+    if 'name' in data:
+        user.name = data['name']
+    if 'lastname' in data:
+        user.lastname = data['lastname']
+    if 'nickname' in data:
+        user.nickname = data['nickname']
+    if 'country' in data:
+        user.country = data['country']
+    if 'description' in data:
+        user.description = data['description']
+
+    db.session.commit()
+    return jsonify(user.serialize())

@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null,
-			users: []
+			users: [],
+			currentUser: null, // Aquí se almacenará el usuario autenticado
 		},
 		actions: {
 			register: async (email, password, name, lastname, nickname, gender, country) => {
@@ -44,11 +45,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if(!response.ok){
 						return false;
 					}
+					 
+					
 					const data = await response.json();
-					console.log(data);
-					localStorage.setItem("token", data.token);
-					setStore({token: data.token});
-					return true; 
+                    localStorage.setItem("token", data.token);
+
+                    // Guardar token y datos del usuario en el store
+                    setStore({
+                        token: data.token,
+                        currentUser: data.user // Guardar el usuario en el store
+                    });
+
+                    
+
+                    return true;
 				}catch (error) {
 					console.error('Error en la solicitud:', error);
 				}
