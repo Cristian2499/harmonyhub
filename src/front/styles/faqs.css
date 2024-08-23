@@ -1,0 +1,29 @@
+.faq-title {
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  z-index: 2;
+}
+
+.faq-title::before {
+  content: "“";
+  font-size: 5rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d6c7ff;
+  left: -3rem;
+  z-index: 1;
+}
+
+.faq-title::after {
+  content: "”";
+  font-size: 5rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffe5c2;
+  right: -3rem;
+  z-index: 1;
+}
