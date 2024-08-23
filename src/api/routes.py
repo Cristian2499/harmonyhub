@@ -289,3 +289,44 @@ def delete_follower(user_to_id):
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
+    
+
+#Agregado por Cristobal Busqueda por ID    
+@api.route('/users/<int:user_id>', methods=['GET'])
+def get_user_by_id(user_id):
+    user = User.query.get(user_id)
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+    return jsonify({
+        'id': user.id,
+        'email': user.email,
+        'name': user.name,
+        'lastname': user.lastname,
+        'nickname': user.nickname,
+        'gender': user.gender.name,
+        'country': user.country.name,
+        'description': user.description,
+        'music_genders': [music_gender.music_gender.name for music_gender in user.music_genders],
+        'music_roles': [music_role.music_role.name for music_role in user.music_roles],
+        'songs': [song.title for song in user.songs],
+        'likes': [like.track.title for like in user.likes]
+    })
+
+#Agregado por Cristobal Busqueda a todos los Usuarios
+@api.route('/users', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+    return jsonify([{
+        'id': user.id,
+        'email': user.email,
+        'name': user.name,
+        'lastname': user.lastname,
+        'nickname': user.nickname,
+        'gender': user.gender.name,
+        'country': user.country.name,
+        'description': user.description,
+        'music_genders': [music_gender.music_gender.name for music_gender in user.music_genders],
+        'music_roles': [music_role.music_role.name for music_role in user.music_roles],
+        'songs': [song.title for song in user.songs],
+        'likes': [like.track.title for like in user.likes]
+    } for user in users])

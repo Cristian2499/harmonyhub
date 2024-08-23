@@ -8,6 +8,7 @@ import CardExplore from "../component/CardExplore.jsx";
 
 
 export const Dashboard = () => {
+
   return (
     <div className="animate__animated animate__fadeIn">
       <NavbarLogged />
@@ -20,14 +21,10 @@ export const Dashboard = () => {
         
           <span className="fs-2 ps-0 fw-bold">Emerging Artists</span>
           <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
+          
+
           <span className="fs-2 ps-0 fw-bold">Explore</span>
+
           <CardExplore/>
           <CardExplore/>
           <CardExplore/>
