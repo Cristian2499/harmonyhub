@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../../styles/my-profile.css";
 import { NavbarLogged } from "../component/NavbarLogged.jsx";
 import Sidebar from "../component/Sidebar.jsx";
@@ -6,8 +6,11 @@ import CardMyProfile from "../component/CardMyProfile.jsx";
 import img04 from "../../img/img-new-artist/img-04.png";
 import CardTrackMyProfile from "../component/CardTrackMyProfile.jsx";
 import { Footer } from "../component/Footer.jsx";
+import { Context } from "../store/appContext.js";
 
 export const MyProfile = () => {
+  const [store, actions] = useContext(Context)
+  
   return (
     <div className="base-profile">
       <NavbarLogged />
