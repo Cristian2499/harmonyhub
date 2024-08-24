@@ -11,11 +11,11 @@ export const Signin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
   const handleSubmitSignin = async (e) => {
     e.preventDefault();
     const response = await actions.login(email, password);
     if (response) {
+      actions.getUsers();
       navigate("/dashboard");
     }
   };
