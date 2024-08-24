@@ -15,6 +15,7 @@ export const Signin = () => {
     e.preventDefault();
     const response = await actions.login(email, password);
     if (response) {
+      actions.getUsers();
       navigate("/dashboard");
     }
   };

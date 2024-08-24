@@ -11,6 +11,8 @@ import Connected from "./pages/connected";
 import ContactUs from "./pages/contactus";
 import { MyProfile } from "./pages/myProfile.js";
 import { Dashboard } from "./pages/dashboard.js";
+import AboutUs from "./pages/aboutus";
+import Faqs from "./pages/faqs";
 
 //create your first component
 const Layout = () => {
@@ -30,10 +32,12 @@ const Layout = () => {
             <Route element={<Signup />} path="/signup" />
             <Route element={<Dashboard />} path="/dashboard" />
             <Route element={<Signin />} path="/signin" />
-            <Route element={<MyProfile/>} path="/myprofile"/>
+            <Route element={<MyProfile />} path="/myprofile/:id" />
             <Route element={<Search />} path="/search" />
             <Route element={<Connected />} path="/connected" />
             <Route element={<ContactUs />} path="/contactus" />
+            <Route element={<AboutUs />} path="/aboutus" />
+            <Route element={<Faqs />} path="faqs" />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
         </ScrollToTop>
