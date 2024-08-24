@@ -12,7 +12,6 @@ const CardArtistPageLogged = () => {
     <div className="row">
       
       {store.users.slice(0, 8).map((user) => {
-        
         return (
           <div key={user.id} className="col-3 pb-2 pt-2">
             <div className="base-card-artist p-3 bg-dark shadow rounded">
