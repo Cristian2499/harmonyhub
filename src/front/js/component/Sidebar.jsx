@@ -5,10 +5,7 @@ import { Link } from "react-router-dom";
 import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 
 const Sidebar = () => {
-
   const { store } = useContext(Context);
-
-  console.log(store.currentUser);
 
   return (
     <div className="base-sidebar d-flex flex-column align-items-center  border-end">
@@ -60,7 +57,7 @@ const Sidebar = () => {
         <li className="sidebar-item fs-4 mt-3">
           <Link
             className="link-sidebar d-flex align-items-center ps-3 py-1 w-100"
-            to="/myprofile"
+            to={"/myprofile/" + store.currentUser.id}
           >
             <i className="fa-solid fa-user me-3"></i>My Profile
           </Link>

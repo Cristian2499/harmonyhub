@@ -315,7 +315,7 @@ def get_user_by_id(user_id):
         'description': user.description,
         'music_genders': [music_gender.music_gender.name for music_gender in user.music_genders],
         'music_roles': [music_role.music_role.name for music_role in user.music_roles],
-        'songs': [song.title for song in user.songs],
+        'songs': [song.name for song in user.songs],
         'likes': [like.track.title for like in user.likes]
     })
 
@@ -334,7 +334,7 @@ def get_all_users():
         'description': user.description,
         'music_genders': [music_gender.music_gender.name for music_gender in user.music_genders],
         'music_roles': [music_role.music_role.name for music_role in user.music_roles],
-        'songs': [song.title for song in user.songs],
+        'songs': [song.name for song in user.songs],
         'likes': [like.track.title for like in user.likes]
     } for user in users])
 
@@ -358,6 +358,18 @@ def update_user(user_id):
 
     db.session.commit()
     return jsonify(user.serialize())
+
+@api.route('/songs', methods=['GET'])
+def get_all_songs():
+    songs = Song.query.all()
+    return jsonify([{
+        "id": song.id,
+        "user_id": song.user_id,
+        "name": song.name,
+        "description": song.description,
+        "likes": song.likes
+    }for song in songs])
+
 
 # de aqui para abajo ayudo alexis para el search
 

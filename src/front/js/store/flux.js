@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			users: [],
 			currentUser: null, // Aquí se almacenará el usuario autenticado
+			
 		},
 		actions: {
 			register: async (email, password, name, lastname, nickname, gender, country) => {
@@ -49,6 +50,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					const data = await response.json();
                     localStorage.setItem("token", data.token);
+					console.log(data.user);
+					
 
                     // Guardar token y datos del usuario en el store
                     setStore({
@@ -74,6 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new error ("No se cargo la API");
 					}
 					const data = await response.json();
+					console.log(data);
 					
 					
 					setStore({users: data});
