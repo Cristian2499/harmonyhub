@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/sidebar.css";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import logoHarmonyHub from "../../img/logo_harmony_hub.png";
 
 const Sidebar = () => {
 
-  const {store} =  useContext(Context);
+  const { store } = useContext(Context);
 
   console.log(store.currentUser);
 
@@ -17,10 +17,12 @@ const Sidebar = () => {
           <div className="col-3">
             <img className="img-user" src={logoHarmonyHub}></img>
           </div>
-          <div className="col-9">
-            <h3>{store.currentUser.name}{" "} {store.currentUser.lastname}</h3>
-            <span>Connected</span>
-          </div>
+          {store.currentUser &&
+            <div className="col-9">
+              <h3>{store.currentUser.name}{" "} {store.currentUser.lastname}</h3>
+              <span>Connected</span>
+            </div>
+          }
         </li>
         <li className="sidebar-item fs-4 mt-3">
           <Link

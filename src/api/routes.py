@@ -358,3 +358,19 @@ def update_user(user_id):
 
     db.session.commit()
     return jsonify(user.serialize())
+
+# de aqui para abajo ayudo alexis para el search
+
+@api.route('/music_gender', methods=['GET'])
+def get_all_music_genders():
+    music_gender = MusicGender.query.all()
+    if len(music_gender)<1:
+        return jsonify({"error": "music genders not found"}), 404
+    return jsonify([item.serialize() for item in music_gender]), 200
+
+@api.route('/music_role', methods=['GET'])
+def get_all_music_roles():
+    music_role = MusicRole.query.all()
+    if len(music_role)<1:
+        return jsonify({"error": "music role not found"}),404
+    return jsonify([item.serialize() for item in music_role]), 200
