@@ -83,6 +83,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Entro en el catch del getUsers:")
 					console.log(error)
 				}
+			},
+
+			// de aqui para abajo ayudo alexis para el search
+			getAllMusicGenders: async () => {
+				
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/music_gender`)
+					if (!response.ok) {
+						throw new error ("No se cargo la API");
+					}
+					const data = await response.json();
+					return data 		
+					
+				} catch (error) {
+					console.log("Entro en el catch del getAllMusicGenders:")
+					console.log(error)
+				}
+			},
+
+			getAllMusicRoles: async () => {
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/music_role`)
+					if (!response.ok) {
+						throw new error ("No se cargo la API");
+					}
+					const data = await response.json();
+					return data 		
+					
+				} catch (error) {
+					console.log("Entro en el catch del getAllMusicRoles:")
+					console.log(error)
+				}
 			}
 	
 		}
