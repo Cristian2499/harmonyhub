@@ -337,6 +337,7 @@ def get_all_users():
         'songs': [song.title for song in user.songs],
         'likes': [like.track.title for like in user.likes]
     } for user in users])
+
 @api.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     user = User.query.get(user_id)

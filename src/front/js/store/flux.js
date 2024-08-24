@@ -33,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (email, password) => {
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/login`,
+					const response = await fetch(`${process.env.BACKEND_URL}/api/login`,
 					{
 						method: "POST",
 						headers: {
@@ -69,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/users`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users`)
 					if (!response.ok) {
 						throw new error ("No se cargo la API");
 					}
