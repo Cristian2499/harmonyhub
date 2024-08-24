@@ -56,7 +56,7 @@ export const Footer = () => {
                 className="languaje-select"
                 aria-label="Default select example"
               >
-                <option defaultValue="#">English</option>
+                <option selected>English</option>
                 <option value="1">Idioma2</option>
                 <option value="2">Idioma3</option>
                 <option value="3">Idioma4</option>

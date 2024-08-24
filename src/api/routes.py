@@ -137,24 +137,17 @@ def login():
             return jsonify({"error": "password and email required"}), 400
         
         user = User.query.filter_by(email=email).first()
-        if user is None or not check_password_hash(user.password, password):
+        print(user)
+        print(email)
+        if user is None:
+            return jsonify({"error": "Email or password wrong"}), 404
+        
+        if not check_password_hash(user.password, password):
             return jsonify({"error": "Email or password wrong"}), 400
 
+
         auth_token = create_access_token({"id": user.id, "email": user.email})
-        
-        # Incluir datos del usuario en la respuesta
-        return jsonify({
-            "token": auth_token,
-            "user": {
-                "id": user.id,
-                "email": user.email,
-                "name": user.name,
-                "lastname": user.lastname,
-                "nickname": user.nickname,
-                "gender": user.gender.name,
-                "country": user.country.name
-            }
-        }), 200
+        return jsonify({"token": auth_token}), 200
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
@@ -296,93 +289,3 @@ def delete_follower(user_to_id):
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
-    
-
-#Agregado por Cristobal Busqueda por ID    
-@api.route('/users/<int:user_id>', methods=['GET'])
-def get_user_by_id(user_id):
-    user = User.query.get(user_id)
-    if user is None:
-        return jsonify({'error': 'User not found'}), 404
-    return jsonify({
-        'id': user.id,
-        'email': user.email,
-        'name': user.name,
-        'lastname': user.lastname,
-        'nickname': user.nickname,
-        'gender': user.gender.name,
-        'country': user.country.name,
-        'description': user.description,
-        'music_genders': [music_gender.music_gender.name for music_gender in user.music_genders],
-        'music_roles': [music_role.music_role.name for music_role in user.music_roles],
-        'songs': [song.name for song in user.songs],
-        'likes': [like.track.title for like in user.likes]
-    })
-
-#Agregado por Cristobal Busqueda a todos los Usuarios
-@api.route('/users', methods=['GET'])
-def get_all_users():
-    users = User.query.all()
-    return jsonify([{
-        'id': user.id,
-        'email': user.email,
-        'name': user.name,
-        'lastname': user.lastname,
-        'nickname': user.nickname,
-        'gender': user.gender.name,
-        'country': user.country.name,
-        'description': user.description,
-        'music_genders': [music_gender.music_gender.name for music_gender in user.music_genders],
-        'music_roles': [music_role.music_role.name for music_role in user.music_roles],
-        'songs': [song.name for song in user.songs],
-        'likes': [like.track.title for like in user.likes]
-    } for user in users])
-
-@api.route('/users/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    user = User.query.get(user_id)
-    if user is None:
-        return jsonify({'error': 'User not found'}), 404
-
-    data = request.get_json()
-    if 'name' in data:
-        user.name = data['name']
-    if 'lastname' in data:
-        user.lastname = data['lastname']
-    if 'nickname' in data:
-        user.nickname = data['nickname']
-    if 'country' in data:
-        user.country = data['country']
-    if 'description' in data:
-        user.description = data['description']
-
-    db.session.commit()
-    return jsonify(user.serialize())
-
-@api.route('/songs', methods=['GET'])
-def get_all_songs():
-    songs = Song.query.all()
-    return jsonify([{
-        "id": song.id,
-        "user_id": song.user_id,
-        "name": song.name,
-        "description": song.description,
-        "likes": song.likes
-    }for song in songs])
-
-
-# de aqui para abajo ayudo alexis para el search
-
-@api.route('/music_gender', methods=['GET'])
-def get_all_music_genders():
-    music_gender = MusicGender.query.all()
-    if len(music_gender)<1:
-        return jsonify({"error": "music genders not found"}), 404
-    return jsonify([item.serialize() for item in music_gender]), 200
-
-@api.route('/music_role', methods=['GET'])
-def get_all_music_roles():
-    music_role = MusicRole.query.all()
-    if len(music_role)<1:
-        return jsonify({"error": "music role not found"}),404
-    return jsonify([item.serialize() for item in music_role]), 200

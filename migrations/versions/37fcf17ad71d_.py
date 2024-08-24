@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 853f7a096a92
+Revision ID: 37fcf17ad71d
 Revises: 
-Create Date: 2024-08-22 21:52:14.043763
+Create Date: 2024-08-17 16:56:25.392606
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '853f7a096a92'
+revision = '37fcf17ad71d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -42,14 +42,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('nickname')
-    )
-    op.create_table('follow',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_from_id', sa.Integer(), nullable=True),
-    sa.Column('user_to_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_from_id'], ['user.id'], ),
-    sa.ForeignKeyConstraint(['user_to_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('song',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -92,7 +84,6 @@ def downgrade():
     op.drop_table('user_music_role')
     op.drop_table('user_music_gender')
     op.drop_table('song')
-    op.drop_table('follow')
     op.drop_table('user')
     op.drop_table('music_role')
     op.drop_table('music_gender')

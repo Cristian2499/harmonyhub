@@ -18,6 +18,18 @@ export const MyProfile = () => {
         <div className="container-fluid d-flex">
           <div className="base-card-profile d-flex flex-column align-items-center">
             <CardMyProfile />
+            <div className="">
+              <div className="d-flex flex-column align-items-center mb-5">
+                <span className="fs-2 fw-bold mb-2">Role in the band</span>
+                <label className="border rounded p-2 mb-2">SINGER</label>
+                <label className="border rounded p-2 mb-2">GUITARRIST</label>
+              </div>
+              <div className="d-flex flex-column align-items-center mb-5">
+                <span className="fs-2 fw-bold mb-2">Music played</span>
+                <label className="border rounded p-2 mb-2">METAL</label>
+                <label className="border rounded p-2 mb-2">ROCK</label>
+              </div>
+            </div>
           </div>
           <div className="container-fluid d-flex flex-column">
             <div className="base-statistics row d-flex justify-content-center mt-2 container-fluid">
@@ -79,6 +91,11 @@ export const MyProfile = () => {
                 </div>
               </div>
               <div className="d-flex row gap-1 mb-1 ms-1">
+                <CardTrackMyProfile />
+                <CardTrackMyProfile />
+                <CardTrackMyProfile />
+                <CardTrackMyProfile />
+                <CardTrackMyProfile />
                 <CardTrackMyProfile />
               </div>
             </div>

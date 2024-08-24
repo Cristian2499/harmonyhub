@@ -18,7 +18,7 @@ class Country(PyEnum):
     CHILESANTIAGO = "Chile-Santiago"
     PARAGUAYASUNCION = "Paraguay-Asuncion"
     URUGUAYMONTEVIDEO ="Uruguay-Montevideo"
-    ARGENTINABSAS = "Argentina-BSAS"
+    ARGENTINABSAS = "Argentina.BSAS"
 
 class User(db.Model):
     __tablename__ = "user"
