@@ -387,9 +387,54 @@ def get_all_music_roles():
         return jsonify({"error": "music role not found"}),404
     return jsonify([item.serialize() for item in music_role]), 200
 
-@api.route('/cities', methods=['GET'])
-def get_all_cities():
-    cities = Country.query.all()
-    if len(cities)<1:
-        return jsonify({"error": "cities not found"}),404
-    return jsonify([item.serialize() for item in cities]), 200
+@api.route('/country', methods=['GET'])
+def get_all_countrys():
+    return jsonify([item.value for item in Country]), 200
+
+@api.route("/users/country/<name>", methods=["GET"])
+def get_all_users_by_country(name):
+    country_enum = next((c for c in Country if c.value == name), None)
+    users= User.query.filter_by(country=country_enum).all()
+    if len(users)<1:
+        return jsonify({"error": "users by country not found"}),404
+    return jsonify([item.serialize() for item in users]), 200
+
+@api.route("/users/role/<int:role_id>", methods=["GET"])
+def get_all_users_by_role(role_id):
+    role = MusicRole.query.get(role_id)
+    if not role:
+        return jsonify({"msg": "role not found"}), 404
+    users = User.query.join(UserMusicRole).filter(UserMusicRole.music_role_id == role_id).all()
+    if len(users)<1:
+        return jsonify({"error": "users by role not found"}),404
+    return jsonify([item.serialize() for item in users]), 200
+
+@api.route("/users/gender/<int:gender_id>", methods=["GET"])
+def get_all_users_by_gender(gender_id):
+    gender = MusicGender.query.get(gender_id)
+    if not gender:
+        return jsonify({"msg": "gender not found"}), 404
+    users = User.query.join(UserMusicGender).filter(UserMusicGender.music_gender_id == gender_id).all()
+    if len(users)<1:
+        return jsonify({"error": "users by gender not found"}),404
+    return jsonify([item.serialize() for item in users]), 200
+
+@api.route("/users/<int:user_id>/role/<int:role_id>", methods=["POST"])
+def add_role_to_user(user_id, role_id):
+    role_exist= UserMusicRole.query.filter_by(user_id=user_id, music_role_id=role_id).all()
+    if role_exist:
+        return jsonify({"error": "the role already exist in the user"}),409
+    new_music_role= UserMusicRole(user_id=user_id, music_role_id=role_id)
+    db.session.add(new_music_role)
+    db.session.commit()
+    return jsonify({"msg": "role added"}), 200
+
+@api.route("/users/<int:user_id>/gender/<int:gender_id>", methods=["POST"])
+def add_gender_to_user(user_id, gender_id):
+    gender_exist= UserMusicGender.query.filter_by(user_id=user_id, music_gender_id=gender_id).all()
+    if gender_exist:
+        return jsonify({"error": "the gender already exist in the user"}),409
+    new_music_gender= UserMusicGender(user_id=user_id, music_gender_id=gender_id)
+    db.session.add(new_music_gender)
+    db.session.commit()
+    return jsonify({"msg": "gender added"}), 200
