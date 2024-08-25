@@ -51,11 +51,11 @@ class User(db.Model):
             "lastname": self.lastname,
             "nickname": self.nickname,
             "gender": self.gender.value,
-            "music_genders": [music_gender.full_serialize() for music_gender in self.music_genders], 
-            "music_roles": [music_role.full_serialize() for music_role in self.music_roles],
+            "music_genders": [music_gender.full_serialize()["name"] for music_gender in self.music_genders], 
+            "music_roles": [music_role.full_serialize()["name"] for music_role in self.music_roles],
             "country": self.country.value,
             "description": self.description,
-            "followers": [follow.serialize() for follow in self.follower]
+            # "followers": [follow.serialize() for follow in self.follower]
         }
     
 
@@ -89,7 +89,7 @@ class UserMusicGender(db.Model):
             "user_id": self.user_id, 
             "music_gender_id": self.music_gender_id
         }
-    
+        
     def full_serialize(self):
         music_gender = MusicGender.query.get(self.music_gender_id)
         return music_gender.serialize()
@@ -99,7 +99,7 @@ class MusicRole(db.Model):
     __tablename__ = "music_role"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=False, nullable=False)
-    music_roles = db.relationship("UserMusicRole", backref="music_role")
+    music_roles = db.relationship("UserMusicRole", back_populates="music_role")
 
     def __repr__(self):
         return f'<MusicRole name: {self.name}>'
@@ -115,6 +115,7 @@ class UserMusicRole(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     music_role_id = db.Column(db.Integer, db.ForeignKey("music_role.id"))
+    music_role = db.relationship(MusicRole)
 
     def __repr__(self):
         return f'<UserMusicRole user: {self.user_id} music role: {self.music_role_id}>'
@@ -125,7 +126,7 @@ class UserMusicRole(db.Model):
             "user_id": self.user_id, 
             "music_role_id": self.music_role_id
         }
-    
+        
     def full_serialize(self):
         music_role = MusicRole.query.get(self.music_role_id)
         return music_role.serialize()
