@@ -7,19 +7,20 @@ import { Context } from '../store/appContext';
 const CardTrackMyProfile = () => {
     const params = useParams();
     const { store, actions } = useContext(Context)
-    const descriptionUser = store.users.find((user) => user.id == params.id)
-
+    const descriptionSong = store.songs.filter((song) => song.user_id == params.id)
+    console.log(descriptionSong);
+    
     return (
         <>
-            {descriptionUser.songs.map((song) => {
+            {descriptionSong.map((song) => {
                 return (
-                    <div className="card-track-profile bg-dark text-white p-4 rounded" key={song}>
+                    <div className="card-track-profile bg-dark text-white p-4 rounded" key={song.id}>
                         <div className="row g-0">
 
                             <div className="col-md-8">
                                 <div className="card-body">
-                                    <h5 className="card-title fs-2" >{song}</h5>
-                                    <p className="card-text text-wrap">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <h5 className="card-title fs-2" >{song.name}</h5>
+                                    <p className="card-text text-wrap">{song.description}</p>
                                 </div>
                             </div>
                             <div className="col-md-4">
