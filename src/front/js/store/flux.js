@@ -120,12 +120,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Entro en el catch del getAllMusicRoles:")
 					console.log(error)
 				}
-			}
+			},
 
-			getAllCities: async () => {
+			getAllCountrys: async () => {
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/cities`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/country`)
 					if (!response.ok) {
 						throw new error ("No se cargo la API");
 					}
@@ -133,10 +133,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return data 		
 					
 				} catch (error) {
-					console.log("Entro en el catch del getAllCities:")
+					console.log("Entro en el catch del getAllCountrys:")
 					console.log(error)
 				}
-			}
+			},
+
+			getAllUsersByParam: async (value, param) => {
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${param}/${value}`)
+					if (!response.ok) {
+						throw new error ("No se cargo la API");
+					}
+					const data = await response.json();
+					return data 		
+					
+				} catch (error) {
+					console.log("Entro en el catch del getAllMusicRoles:")
+					return []
+				}
+			},
 
 
 	

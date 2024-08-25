@@ -54,14 +54,16 @@ const Sidebar = () => {
             <i className="fa-solid fa-bell me-3"></i>Notifications
           </Link>
         </li>
-        <li className="sidebar-item fs-4 mt-3">
-          <Link
-            className="link-sidebar d-flex align-items-center ps-3 py-1 w-100"
-            to={"/myprofile/" + store.currentUser.id}
-          >
-            <i className="fa-solid fa-user me-3"></i>My Profile
-          </Link>
-        </li>
+        {store.currentUser &&
+          <li className="sidebar-item fs-4 mt-3">
+            <Link
+              className="link-sidebar d-flex align-items-center ps-3 py-1 w-100"
+              to={"/myprofile/" + store.currentUser.id}
+            >
+              <i className="fa-solid fa-user me-3"></i>My Profile
+            </Link>
+          </li>
+        }
       </ul>
     </div>
   );
