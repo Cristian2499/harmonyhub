@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Follow
+from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Follow, Country
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -374,3 +374,10 @@ def get_all_music_roles():
     if len(music_role)<1:
         return jsonify({"error": "music role not found"}),404
     return jsonify([item.serialize() for item in music_role]), 200
+
+@api.route('/cities', methods=['GET'])
+def get_all_cities():
+    cities = Country.query.all()
+    if len(cities)<1:
+        return jsonify({"error": "cities not found"}),404
+    return jsonify([item.serialize() for item in cities]), 200

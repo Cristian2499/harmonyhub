@@ -117,6 +117,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			}
+
+			getAllCities: async () => {
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/cities`)
+					if (!response.ok) {
+						throw new error ("No se cargo la API");
+					}
+					const data = await response.json();
+					return data 		
+					
+				} catch (error) {
+					console.log("Entro en el catch del getAllCities:")
+					console.log(error)
+				}
+			}
+
+
 	
 		}
 	};
