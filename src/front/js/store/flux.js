@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			users: [],
 			currentUser: null, // Aquí se almacenará el usuario autenticado
 			songs: [],
+			userDetails: null, // Almacena los detalles de un usuario específico
 
 		},
 		actions: {
@@ -198,6 +199,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			// Nueva acción para obtener los detalles de un usuario
+			getUserDetails: async (userId) => {
+				try {
+				  const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}`);
+				  if (!response.ok) {
+					throw new Error("No se pudo obtener la información del usuario");
+				  }
+				  const data = await response.json();
+				  setStore({ userDetails: data });
+				} catch (error) {
+				  console.log("Error al obtener los detalles del usuario:", error);
+				}
+			  },
 
 
 		}
