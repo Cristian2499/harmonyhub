@@ -7,7 +7,6 @@ import { Context } from '../store/appContext';
 const CardTrackMyProfile = () => {
     const params = useParams();
     const { store, actions } = useContext(Context)
-    
     const descriptionSong = store.songs.filter((song) => song.user_id == params.id)
     console.log(descriptionSong);
     
