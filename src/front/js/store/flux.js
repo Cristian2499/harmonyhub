@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			users: [],
 			currentUser: null, // Aquí se almacenará el usuario autenticado
+			songs: []
 			
 		},
 		actions: {
@@ -50,7 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					
 					const data = await response.json();
                     localStorage.setItem("token", data.token);
-					console.log(data.user);
+					console.log(data.token);
 					
 
                     // Guardar token y datos del usuario en el store
@@ -89,6 +90,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			getSongs: async () => {
+				const store = getStore();
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/songs`)
+					if(!response.ok){
+						throw new error ("No se cargo la API");
+					}
+					const data = await response.json();
+					console.log(data);
+
+					setStore({songs: data})
+
+				} catch (error) {
+					console.log(error);
+				}
+			},
+
+			postSong: async (song) => {
+				const store = getStore;
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/song`,{
+						method: "POST",
+						body: JSON.stringify(song),
+						headers:{
+							"Content-type": "application/json",
+						}
+					});
+				const data = await response.json();
+				localStorage.setItem("token", data.token);
+				if(response.ok){
+					setStore({songs: [...store.songs, data]});
+					console.log(store.songs);
+					return true;
+				}
+				} catch (error) {
+					console.log(error);
+				}
+			},
+
 			// de aqui para abajo ayudo alexis para el search
 			getAllMusicGenders: async () => {
 				
@@ -120,7 +161,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Entro en el catch del getAllMusicRoles:")
 					console.log(error)
 				}
-			}
+			},
 
 			getAllCities: async () => {
 
