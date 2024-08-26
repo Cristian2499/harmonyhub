@@ -35,7 +35,7 @@ const FollowButton = ({ userId }) => {
 
         try {
             console.log(localStorage.getItem("token"));
-            
+
             const res = await fetch(`${process.env.BACKEND_URL}/api/${action}/${userId}`, { method, headers: { "Authorization": `Bearer ${token}` } });
             console.log(res)
             if (res.ok) {
@@ -49,9 +49,9 @@ const FollowButton = ({ userId }) => {
     }, [isFollowing, userId]);
 
     return (
-        <button onClick={handleFollowToggle} className="btn edit-profile">
+        <a onClick={handleFollowToggle} className="btn edit-profile">
             {isFollowing ? "UNFOLLOW" : "FOLLOW"}
-        </button>
+        </a>
     );
 };
 

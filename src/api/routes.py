@@ -343,6 +343,21 @@ def follow_status(target_id):
         return jsonify({"error": f"Internal server error: {error}"}), 500
     
 
+@api.route("/follower-count/<int:user_id>", methods=["GET"])
+@jwt_required()
+def get_follower_count(user_id):
+    try:
+        user=User.query.get(user_id)
+        if user is None:
+            return jsonify({"error":"User not found"}), 404
+        follower_count=Followers.query.filter_by(followed_id=user.id).count()
+
+        return jsonify({"follower_count":follower_count}), 200
+    except Exception as error:
+        print(f"Error occurred: {error}")
+        return jsonify({"error": f"Internal server error: {error}"}), 500
+    
+
 # Agregado por Cristobal Busqueda por ID
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user_by_id(user_id):
