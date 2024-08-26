@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Follow, Country
+from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Followers, Country
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -16,7 +16,7 @@ CORS(api)
 
 @api.route('/register', methods=['POST'])
 def register_new_user():
-    try: 
+    try:
         body = request.json
         email = body.get("email", None)
         password = body.get("password", None)
@@ -27,22 +27,22 @@ def register_new_user():
         country = body.get("country", None)
         if email is None or password is None or name is None or lastname is None or nickname is None or gender is None or country is None:
             return jsonify({"error": "all the fields must be completed"}), 400
-        
-        email_is_taken = User.query.filter_by(email=email).first() 
+
+        email_is_taken = User.query.filter_by(email=email).first()
         if email_is_taken:
             return jsonify({"error": "Email already exist"}), 400
-        
+
         password_hash = generate_password_hash(password)
         print(password_hash, len(password_hash))
-        user = User(email=email, password=password_hash, name=name, lastname=lastname, nickname=nickname,gender=Gender(gender), country=Country(country), is_active=True )
+        user = User(email=email, password=password_hash, name=name, lastname=lastname,
+                    nickname=nickname, gender=Gender(gender), country=Country(country), is_active=True)
         db.session.add(user)
         db.session.commit()
         return jsonify({"msg": f"{nickname} created!"}), 201
-        
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
-    
+
 
 @api.route("/musicgender", methods=["POST"])
 def create_music_gender():
@@ -63,24 +63,28 @@ def create_music_gender():
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
+
 @api.route("/user/musicgender/<int:music_gender_id>", methods=["POST"])
 @jwt_required()
 def create_user_music_gender(music_gender_id):
-    try: 
+    try:
         user_data = get_jwt_identity()
-        music_gender_is_taken = UserMusicGender.query.filter_by(user_id = user_data["id"], music_gender_id = music_gender_id).first()
+        music_gender_is_taken = UserMusicGender.query.filter_by(
+            user_id=user_data["id"], music_gender_id=music_gender_id).first()
         if music_gender_is_taken:
             return jsonify({"error": "Music gender already exist"}), 400
-        
-        user_music_gender = UserMusicGender(user_id = user_data["id"], music_gender_id = music_gender_id)
+
+        user_music_gender = UserMusicGender(
+            user_id=user_data["id"], music_gender_id=music_gender_id)
         db.session.add(user_music_gender)
         db.session.commit()
         db.session.refresh(user_music_gender)
         return jsonify({"msg": f"{music_gender_id} created!"}), 201
 
     except Exception as error:
-        return jsonify({"error": f"{error}"}),500
-    
+        return jsonify({"error": f"{error}"}), 500
+
+
 @api.route("/musicrole", methods=["POST"])
 def create_music_role():
     try:
@@ -88,7 +92,7 @@ def create_music_role():
         name = body.get("name", None)
         if name is None:
             return jsonify({"error": "name is required"}), 400
-        
+
         music_role = MusicRole(name=name)
 
         db.session.add(music_role)
@@ -96,20 +100,23 @@ def create_music_role():
         db.session.refresh(music_role)
 
         return jsonify({"message": f"{name} created!"}), 201
-    
+
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
-    
+
+
 @api.route("/user/musicrole/<int:music_role_id>", methods=["POST"])
 @jwt_required()
 def create_user_music_role(music_role_id):
     try:
         user_data = get_jwt_identity()
-        music_role_is_taken = UserMusicRole.query.filter_by(user_id = user_data["id"], music_role_id = music_role_id).first()
+        music_role_is_taken = UserMusicRole.query.filter_by(
+            user_id=user_data["id"], music_role_id=music_role_id).first()
         if music_role_is_taken:
             return jsonify({"error": "Music role already exits"}), 400
-        
-        user_music_role = UserMusicRole(user_id = user_data["id"], music_role_id = music_role_id)
+
+        user_music_role = UserMusicRole(
+            user_id=user_data["id"], music_role_id=music_role_id)
         db.session.add(user_music_role)
         db.session.commit()
         db.session.refresh(user_music_role)
@@ -135,13 +142,13 @@ def login():
         password = body.get("password", None)
         if email is None or password is None:
             return jsonify({"error": "password and email required"}), 400
-        
+
         user = User.query.filter_by(email=email).first()
         if user is None or not check_password_hash(user.password, password):
             return jsonify({"error": "Email or password wrong"}), 400
 
         auth_token = create_access_token({"id": user.id, "email": user.email})
-        
+
         # Incluir datos del usuario en la respuesta
         return jsonify({
             "token": auth_token,
@@ -159,7 +166,9 @@ def login():
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-#obtener cancines (sirve),crear canciones(sirve),borrar cancion (sirve)
+# obtener cancines (sirve),crear canciones(sirve),borrar cancion (sirve)
+
+
 @api.route("/song/<int:id>", methods=["GET"])
 def get_song_by_id(id):
     try:
@@ -167,7 +176,8 @@ def get_song_by_id(id):
         return jsonify({"song": song.serialize()})
 
     except Exception as error:
-        return jsonify({"error": f"{error}"}),500
+        return jsonify({"error": f"{error}"}), 500
+
 
 @api.route("/song", methods=["POST"])
 @jwt_required()
@@ -179,8 +189,9 @@ def create_song():
         description = body.get("description", None)
         if name is None or description is None:
             return jsonify({"error": "all the fields must be completed"}), 400
-        
-        song = Song(user_id=user_data["id"], name=name, description=description)
+
+        song = Song(user_id=user_data["id"],
+                    name=name, description=description)
 
         db.session.add(song)
         db.session.commit()
@@ -190,16 +201,18 @@ def create_song():
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
-    
+
+
 @api.route("/song/<int:song_id>", methods=["DELETE"])
 @jwt_required()
 def delete_song(song_id):
     try:
         user_data = get_jwt_identity()
-        song = Song.query.filter_by(user_id=user_data["id"]).filter_by(id=song_id).first()
+        song = Song.query.filter_by(
+            user_id=user_data["id"]).filter_by(id=song_id).first()
         if song is None:
             return jsonify({"error": "song not found"}), 404
-        
+
         db.session.delete(song)
         db.session.commit()
 
@@ -207,15 +220,18 @@ def delete_song(song_id):
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
-    
-#agregar likes (sirve)y borrarlos (sirve)
+
+# agregar likes (sirve)y borrarlos (sirve)
+
+
 @api.route("/like/song/<int:song_id>", methods=["POST"])
 @jwt_required()
 def create_like_song(song_id):
     try:
         body = request.json
         user_data = get_jwt_identity()
-        song_like = TrackLikes.query.filter_by(user_id=user_data["id"], song_id=song_id).first()
+        song_like = TrackLikes.query.filter_by(
+            user_id=user_data["id"], song_id=song_id).first()
         if song_like:
             return jsonify({"error": f"song already exist in your likes"}), 409
         song_exist = Song.query.get(song_id)
@@ -233,26 +249,29 @@ def create_like_song(song_id):
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
+
 @api.route("/like/song/<int:song_id>", methods=["DELETE"])
 @jwt_required()
 def delete_like_song(song_id):
     try:
         user_data = get_jwt_identity()
-        song_like = TrackLikes.query.filter_by(user_id=user_data["id"], song_id=song_id).first()
+        song_like = TrackLikes.query.filter_by(
+            user_id=user_data["id"], song_id=song_id).first()
         if song_like is None:
             return jsonify({"error": "song not found"}), 404
-    
+
         db.session.delete(song_like)
         db.session.commit()
 
         return jsonify({"msg": "song like delete"}), 200
-    
+
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-#follow
+# follow
 
-@api.route("/follow/<int:user_to_id>" , methods=["POST"])
+
+@api.route("/follow/<int:user_to_id>", methods=["POST"])
 @jwt_required()
 def follow_user(user_to_id):
     try:
@@ -260,12 +279,13 @@ def follow_user(user_to_id):
         user_exist = User.query.get(user_to_id)
         if user_exist is None:
             return jsonify({"error": f"user not found"}), 404
-        
-        already_followed = Follow.query.filter_by(user_from_id=user_data["id"], user_to_id=user_to_id).first()
+
+        already_followed = Followers.query.filter_by(
+            follower_id=user_data["id"], followed_id=user_to_id).first()
         if already_followed is not None:
             return jsonify({"error": f"user already followed"}), 400
-        
-        follow = Follow(user_from_id=user_data["id"], user_to_id=user_to_id)
+
+        follow = Followers(follower_id=user_data["id"], followed_id=user_to_id)
 
         db.session.add(follow)
         db.session.commit()
@@ -276,7 +296,8 @@ def follow_user(user_to_id):
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-@api.route("/unfollow/<int:user_to_id>", methods=["POST"])
+
+@api.route("/unfollow/<int:user_to_id>", methods=["DELETE"])
 @jwt_required()
 def delete_follower(user_to_id):
     try:
@@ -284,8 +305,9 @@ def delete_follower(user_to_id):
         user_exist = User.query.get(user_to_id)
         if user_exist is None:
             return jsonify({"error": f"user not found"}), 404
-        
-        followed_user = Follow.query.filter_by(user_from_id = user_data["id"], user_to_id=user_to_id).first()
+
+        followed_user = Followers.query.filter_by(
+            follower_id=user_data["id"], followed_id=user_to_id).first()
         if followed_user is None:
             return jsonify({"msg": "user is not followed"}), 400
 
@@ -297,31 +319,46 @@ def delete_follower(user_to_id):
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-#metodo get agregado por Luis
-@api.route("/follow-status/<int:user_to_id>" , methods=["GET"])
+# metodo get agregado por Luis
+
+@api.route("/follow-status/<int:target_id>", methods=["GET"])
 @jwt_required()
-def follow_status(user_to_id):
+def follow_status(target_id):
     try:
-        user_data = get_jwt_identity()
-        user_exist = User.query.get(user_to_id)
-        if user_exist is None:
-            return jsonify({"error": f"user not found"}), 404
-        
-        followed_user = Follow.query.filter_by(user_from_id = user_data["id"], user_to_id=user_to_id).first()
+        follower_data = get_jwt_identity()
+        follower_id = follower_data.get("id")
+
+        if follower_id is None:
+            return jsonify({"error": "Invalid follower identity"}), 404
+
+        followed_user = User.query.get(target_id)
         if followed_user is None:
-            return jsonify({"msg": "user is not followed"}), 400
-        follow_info = Follow.query.get(user_data["id"])
-        data=follow_info.serialize()
-        if data.user_from_id == data.user_to_id:
-            return jsonify({"follow_status": True})
-        else:
-            return jsonify({"follow_status": False})
-    
+            return jsonify({"error": "User not found"}), 404
+
+        status = Followers.query.filter_by(follower_id=follower_id, followed_id=target_id).first() is not None
+        return jsonify({"follow_status": status})
+
     except Exception as error:
-        return jsonify({"error": f"{error}"}),500
+        print(f"Error occurred: {error}")
+        return jsonify({"error": f"Internal server error: {error}"}), 500
     
 
-#Agregado por Cristobal Busqueda por ID    
+@api.route("/follower-count/<int:user_id>", methods=["GET"])
+@jwt_required()
+def get_follower_count(user_id):
+    try:
+        user=User.query.get(user_id)
+        if user is None:
+            return jsonify({"error":"User not found"}), 404
+        follower_count=Followers.query.filter_by(followed_id=user.id).count()
+
+        return jsonify({"follower_count":follower_count}), 200
+    except Exception as error:
+        print(f"Error occurred: {error}")
+        return jsonify({"error": f"Internal server error: {error}"}), 500
+    
+
+# Agregado por Cristobal Busqueda por ID
 @api.route('/users/<int:user_id>', methods=['GET'])
 def get_user_by_id(user_id):
     user = User.query.get(user_id)
@@ -342,7 +379,9 @@ def get_user_by_id(user_id):
         'likes': [like.track.title for like in user.likes]
     })
 
-#Agregado por Cristobal Busqueda a todos los Usuarios
+# Agregado por Cristobal Busqueda a todos los Usuarios
+
+
 @api.route('/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
@@ -360,6 +399,7 @@ def get_all_users():
         'songs': [song.name for song in user.songs],
         'likes': [like.track.title for like in user.likes]
     } for user in users])
+
 
 @api.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
@@ -382,6 +422,7 @@ def update_user(user_id):
     db.session.commit()
     return jsonify(user.serialize())
 
+
 @api.route('/songs', methods=['GET'])
 def get_all_songs():
     songs = Song.query.all()
@@ -399,65 +440,77 @@ def get_all_songs():
 @api.route('/music_gender', methods=['GET'])
 def get_all_music_genders():
     music_gender = MusicGender.query.all()
-    if len(music_gender)<1:
+    if len(music_gender) < 1:
         return jsonify({"error": "music genders not found"}), 404
     return jsonify([item.serialize() for item in music_gender]), 200
+
 
 @api.route('/music_role', methods=['GET'])
 def get_all_music_roles():
     music_role = MusicRole.query.all()
-    if len(music_role)<1:
-        return jsonify({"error": "music role not found"}),404
+    if len(music_role) < 1:
+        return jsonify({"error": "music role not found"}), 404
     return jsonify([item.serialize() for item in music_role]), 200
+
 
 @api.route('/country', methods=['GET'])
 def get_all_countrys():
     return jsonify([item.value for item in Country]), 200
 
+
 @api.route("/users/country/<name>", methods=["GET"])
 def get_all_users_by_country(name):
     country_enum = next((c for c in Country if c.value == name), None)
-    users= User.query.filter_by(country=country_enum).all()
-    if len(users)<1:
-        return jsonify({"error": "users by country not found"}),404
+    users = User.query.filter_by(country=country_enum).all()
+    if len(users) < 1:
+        return jsonify({"error": "users by country not found"}), 404
     return jsonify([item.serialize() for item in users]), 200
+
 
 @api.route("/users/role/<int:role_id>", methods=["GET"])
 def get_all_users_by_role(role_id):
     role = MusicRole.query.get(role_id)
     if not role:
         return jsonify({"msg": "role not found"}), 404
-    users = User.query.join(UserMusicRole).filter(UserMusicRole.music_role_id == role_id).all()
-    if len(users)<1:
-        return jsonify({"error": "users by role not found"}),404
+    users = User.query.join(UserMusicRole).filter(
+        UserMusicRole.music_role_id == role_id).all()
+    if len(users) < 1:
+        return jsonify({"error": "users by role not found"}), 404
     return jsonify([item.serialize() for item in users]), 200
+
 
 @api.route("/users/gender/<int:gender_id>", methods=["GET"])
 def get_all_users_by_gender(gender_id):
     gender = MusicGender.query.get(gender_id)
     if not gender:
         return jsonify({"msg": "gender not found"}), 404
-    users = User.query.join(UserMusicGender).filter(UserMusicGender.music_gender_id == gender_id).all()
-    if len(users)<1:
-        return jsonify({"error": "users by gender not found"}),404
+    users = User.query.join(UserMusicGender).filter(
+        UserMusicGender.music_gender_id == gender_id).all()
+    if len(users) < 1:
+        return jsonify({"error": "users by gender not found"}), 404
     return jsonify([item.serialize() for item in users]), 200
+
 
 @api.route("/users/<int:user_id>/role/<int:role_id>", methods=["POST"])
 def add_role_to_user(user_id, role_id):
-    role_exist= UserMusicRole.query.filter_by(user_id=user_id, music_role_id=role_id).all()
+    role_exist = UserMusicRole.query.filter_by(
+        user_id=user_id, music_role_id=role_id).all()
     if role_exist:
-        return jsonify({"error": "the role already exist in the user"}),409
-    new_music_role= UserMusicRole(user_id=user_id, music_role_id=role_id)
+        return jsonify({"error": "the role already exist in the user"}), 409
+    new_music_role = UserMusicRole(user_id=user_id, music_role_id=role_id)
     db.session.add(new_music_role)
     db.session.commit()
     return jsonify({"msg": "role added"}), 200
 
+
 @api.route("/users/<int:user_id>/gender/<int:gender_id>", methods=["POST"])
 def add_gender_to_user(user_id, gender_id):
-    gender_exist= UserMusicGender.query.filter_by(user_id=user_id, music_gender_id=gender_id).all()
+    gender_exist = UserMusicGender.query.filter_by(
+        user_id=user_id, music_gender_id=gender_id).all()
     if gender_exist:
-        return jsonify({"error": "the gender already exist in the user"}),409
-    new_music_gender= UserMusicGender(user_id=user_id, music_gender_id=gender_id)
+        return jsonify({"error": "the gender already exist in the user"}), 409
+    new_music_gender = UserMusicGender(
+        user_id=user_id, music_gender_id=gender_id)
     db.session.add(new_music_gender)
     db.session.commit()
     return jsonify({"msg": "gender added"}), 200
