@@ -4,7 +4,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Follow, Country
+from api.models import db, User, Gender, Country, MusicGender, UserMusicGender, MusicRole, UserMusicRole, Song, TrackLikes, Followers, Country
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -280,12 +280,12 @@ def follow_user(user_to_id):
         if user_exist is None:
             return jsonify({"error": f"user not found"}), 404
 
-        already_followed = Follow.query.filter_by(
+        already_followed = Followers.query.filter_by(
             user_from_id=user_data["id"], user_to_id=user_to_id).first()
         if already_followed is not None:
             return jsonify({"error": f"user already followed"}), 400
 
-        follow = Follow(user_from_id=user_data["id"], user_to_id=user_to_id)
+        follow = Followers(user_from_id=user_data["id"], user_to_id=user_to_id)
 
         db.session.add(follow)
         db.session.commit()
@@ -306,7 +306,7 @@ def delete_follower(user_to_id):
         if user_exist is None:
             return jsonify({"error": f"user not found"}), 404
 
-        followed_user = Follow.query.filter_by(
+        followed_user = Followers.query.filter_by(
             user_from_id=user_data["id"], user_to_id=user_to_id).first()
         if followed_user is None:
             return jsonify({"msg": "user is not followed"}), 400
@@ -330,7 +330,9 @@ def follow_status(target_id):
         followed_id = User.query.get(target_id)
         if followed_id is None or follower_id is None:
             return jsonify({"error": f"user not found"}), 404
-        return followed_id.serialize()
+        
+        status = Followers.query.filter_by(follower_id=follower_id, followed_id=followed_id).first() is not None
+        return status
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500

@@ -41,9 +41,10 @@ class User(db.Model):
     description = db.Column(db.String(500), unique=False, nullable=True)
     songs = db.relationship("Song", backref="user", lazy=True)
     likes = db.relationship("TrackLikes", backref="user", lazy=True)
-    follower = db.relationship("User", secondary=followers, primaryjoin=(followers.c.follower_id == id),
-                               secondaryjoin=(followers.c.followed_id == id),
-                               backref=db.backref("followers", lazy="dynamic"), lazy="dynamic")
+    followed = db.relationship("Followers", foreign_keys="[Followers.follower_id]",
+                                backref="follower_user", lazy="dynamic")
+    follower =  db.relationship("Followers", foreign_keys="[Followers.followed_id]",
+                                backref="followed_user", lazy="dynamic")
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -185,9 +186,9 @@ class TrackLikes(db.Model):
 class Followers(db.Model):
     __tablename__ = "followers"
     id = db.Column(db.Integer, primary_key=True)
-    follower_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    followed_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    user_from = db.relationship("User", foreign_keys=[follower_id])
+    follower_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    followed_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_from = db.relationship("User", foreign_keys=[follower_id], )
     user_to = db.relationship("User", foreign_keys=[followed_id])
 
     def __repr__(self):
