@@ -23,7 +23,7 @@ const Search = () => {
           <div className="w-75">
             {users && users.length > 0 ? users.map(item => {
               return (
-                <CardExploreSearch key={item.id} name={item.name} lastname={item.lastname} music_roles={item.music_roles} music_genders={item.music_genders} country={item.country}/>
+                <CardExploreSearch key={item.id} id={item.id} name={item.name} lastname={item.lastname} music_roles={item.music_roles} music_genders={item.music_genders} country={item.country}/>
               )
             }):
             <h1>no hay usuarios</h1>
