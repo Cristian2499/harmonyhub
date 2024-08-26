@@ -281,11 +281,11 @@ def follow_user(user_to_id):
             return jsonify({"error": f"user not found"}), 404
 
         already_followed = Followers.query.filter_by(
-            user_from_id=user_data["id"], user_to_id=user_to_id).first()
+            follower_id=user_data["id"], followed_id=user_to_id).first()
         if already_followed is not None:
             return jsonify({"error": f"user already followed"}), 400
 
-        follow = Followers(user_from_id=user_data["id"], user_to_id=user_to_id)
+        follow = Followers(follower_id=user_data["id"], followed_id=user_to_id)
 
         db.session.add(follow)
         db.session.commit()
@@ -297,7 +297,7 @@ def follow_user(user_to_id):
         return jsonify({"error": f"{error}"}), 500
 
 
-@api.route("/unfollow/<int:user_to_id>", methods=["POST"])
+@api.route("/unfollow/<int:user_to_id>", methods=["DELETE"])
 @jwt_required()
 def delete_follower(user_to_id):
     try:
@@ -307,7 +307,7 @@ def delete_follower(user_to_id):
             return jsonify({"error": f"user not found"}), 404
 
         followed_user = Followers.query.filter_by(
-            user_from_id=user_data["id"], user_to_id=user_to_id).first()
+            follower_id=user_data["id"], followed_id=user_to_id).first()
         if followed_user is None:
             return jsonify({"msg": "user is not followed"}), 400
 
@@ -321,22 +321,27 @@ def delete_follower(user_to_id):
 
 # metodo get agregado por Luis
 
-
-@api.route("/follow-status/<int:followed_id>", methods=["GET"])
+@api.route("/follow-status/<int:target_id>", methods=["GET"])
 @jwt_required()
 def follow_status(target_id):
     try:
-        follower_id = get_jwt_identity()  # return an object with the id and the email
-        followed_id = User.query.get(target_id)
-        if followed_id is None or follower_id is None:
-            return jsonify({"error": f"user not found"}), 404
-        
-        status = Followers.query.filter_by(follower_id=follower_id, followed_id=followed_id).first() is not None
-        return status
+        follower_data = get_jwt_identity()
+        follower_id = follower_data.get("id")
+
+        if follower_id is None:
+            return jsonify({"error": "Invalid follower identity"}), 404
+
+        followed_user = User.query.get(target_id)
+        if followed_user is None:
+            return jsonify({"error": "User not found"}), 404
+
+        status = Followers.query.filter_by(follower_id=follower_id, followed_id=target_id).first() is not None
+        return jsonify({"follow_status": status})
 
     except Exception as error:
-        return jsonify({"error": f"{error}"}), 500
-
+        print(f"Error occurred: {error}")
+        return jsonify({"error": f"Internal server error: {error}"}), 500
+    
 
 # Agregado por Cristobal Busqueda por ID
 @api.route('/users/<int:user_id>', methods=['GET'])

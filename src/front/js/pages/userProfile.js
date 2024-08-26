@@ -6,6 +6,7 @@ import CardMyProfile from "../component/CardMyProfile.jsx";
 import img04 from "../../img/img-new-artist/img-04.png";
 import CardTrackMyProfile from "../component/CardTrackMyProfile.jsx";
 import img01 from "../../img/img-new-artist/img-01.png";
+import FollowButton from "../component/FollowButton.jsx";
 import { Footer } from "../component/Footer.jsx";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
@@ -71,6 +72,9 @@ const UserProfile = () => {
                 <span className="fw-bold fs-5">HC</span>
                 <span className="statistic-item fw-bold fs-4">Following</span>
               </div>
+            </div>
+            <div>
+              <FollowButton userId={userId} />
             </div>
           </div>
         </div>
