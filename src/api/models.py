@@ -3,10 +3,12 @@ from enum import Enum as PyEnum
 
 db = SQLAlchemy()
 
+
 class Gender(PyEnum):
     FEMALE = "Female"
     MALE = "Male"
-    OTHER ="Other"
+    OTHER = "Other"
+
 
 class Country(PyEnum):
     COLOMBIABOGOTA = "Colombia-Bogota"
@@ -17,8 +19,10 @@ class Country(PyEnum):
     MEXICOCDMX = "Mexico-CDMX"
     CHILESANTIAGO = "Chile-Santiago"
     PARAGUAYASUNCION = "Paraguay-Asuncion"
-    URUGUAYMONTEVIDEO ="Uruguay-Montevideo"
+    URUGUAYMONTEVIDEO = "Uruguay-Montevideo"
     ARGENTINABSAS = "Argentina-BSAS"
+
+
 
 class User(db.Model):
     __tablename__ = "user"
@@ -29,15 +33,17 @@ class User(db.Model):
     # son adiciones
     name = db.Column(db.String(120), unique=False, nullable=False)
     lastname = db.Column(db.String(120), unique=False, nullable=False)
-    nickname = db.Column(db.String(120), unique=True, nullable=False) 
+    nickname = db.Column(db.String(120), unique=True, nullable=False)
     gender = db.Column(db.Enum(Gender), unique=False, nullable=False)
     music_genders = db.relationship("UserMusicGender", backref="user")
     music_roles = db.relationship("UserMusicRole", backref="user")
     country = db.Column(db.Enum(Country), unique=False, nullable=False)
-    description = db.Column(db.String(500), unique=False, nullable=True) 
+    description = db.Column(db.String(500), unique=False, nullable=True)
     songs = db.relationship("Song", backref="user", lazy=True)
     likes = db.relationship("TrackLikes", backref="user", lazy=True)
-    #follower = db.relationship("Follow", backref="user", lazy=True)
+    follower = db.relationship("User", secondary=followers, primaryjoin=(followers.c.follower_id == id),
+                               secondaryjoin=(followers.c.followed_id == id),
+                               backref=db.backref("followers", lazy="dynamic"), lazy="dynamic")
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -51,13 +57,13 @@ class User(db.Model):
             "lastname": self.lastname,
             "nickname": self.nickname,
             "gender": self.gender.value,
-            "music_genders": [music_gender.full_serialize()["name"] for music_gender in self.music_genders], 
+            "music_genders": [music_gender.full_serialize()["name"] for music_gender in self.music_genders],
             "music_roles": [music_role.full_serialize()["name"] for music_role in self.music_roles],
             "country": self.country.value,
             "description": self.description,
-            # "followers": [follow.serialize() for follow in self.follower]
+            "followers": [follow.serialize() for follow in self.follower]
         }
-    
+
 
 class MusicGender(db.Model):
     __tablename__ = "music_gender"
@@ -70,9 +76,10 @@ class MusicGender(db.Model):
 
     def serialize(self):
         return {
-            "id": self.id, 
+            "id": self.id,
             "name": self.name
-        }  
+        }
+
 
 class UserMusicGender(db.Model):
     __tablename__ = "user_music_gender"
@@ -82,19 +89,19 @@ class UserMusicGender(db.Model):
 
     def __repr__(self):
         return f'<UserMusicGender user: {self.user_id} music gender: {self.music_gender_id}>'
-    
+
     def serialize(self):
         return {
-            "id": self.id, 
-            "user_id": self.user_id, 
+            "id": self.id,
+            "user_id": self.user_id,
             "music_gender_id": self.music_gender_id
         }
-        
+
     def full_serialize(self):
         music_gender = MusicGender.query.get(self.music_gender_id)
         return music_gender.serialize()
-        
-    
+
+
 class MusicRole(db.Model):
     __tablename__ = "music_role"
     id = db.Column(db.Integer, primary_key=True)
@@ -103,12 +110,13 @@ class MusicRole(db.Model):
 
     def __repr__(self):
         return f'<MusicRole name: {self.name}>'
-    
+
     def serialize(self):
         return {
-            "id": self.id, 
+            "id": self.id,
             "name": self.name
         }
+
 
 class UserMusicRole(db.Model):
     __tablename__ = "user_music_role"
@@ -119,21 +127,23 @@ class UserMusicRole(db.Model):
 
     def __repr__(self):
         return f'<UserMusicRole user: {self.user_id} music role: {self.music_role_id}>'
-    
+
     def serialize(self):
         return {
-            "id": self.id, 
-            "user_id": self.user_id, 
+            "id": self.id,
+            "user_id": self.user_id,
             "music_role_id": self.music_role_id
         }
-        
+
     def full_serialize(self):
         music_role = MusicRole.query.get(self.music_role_id)
         return music_role.serialize()
 
-#nuevo
+# nuevo
+
+
 class Song(db.Model):
-    __tablename__ = "song" 
+    __tablename__ = "song"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     name = db.Column(db.String(50), unique=False, nullable=True)
@@ -142,15 +152,16 @@ class Song(db.Model):
 
     def __repr__(self):
         return f'<Song user: {self.user_id} name: {self.name}  description: {self.description}>'
-    
+
     def serialize(self):
         return {
-            "id": self.id, 
-            "user_id": self.user_id, 
+            "id": self.id,
+            "user_id": self.user_id,
             "name": self.name,
-            "description": self.description, 
+            "description": self.description,
             "likes": len(self.likes)
         }
+
 
 class TrackLikes(db.Model):
     __tablename__ = "track_likes"
@@ -160,30 +171,31 @@ class TrackLikes(db.Model):
 
     def __repr__(self):
         return f'<TrackLikes user: {self.user_id} song: {self.song_id}>'
-    
+
     def serialize(self):
         return {
-            "id": self.id, 
-            "user_id": self.user_id, 
+            "id": self.id,
+            "user_id": self.user_id,
             "song_id": self.song_id,
         }
 
-#follower
+# follower
 
-class Follow(db.Model):
-    __tablename__ = "follow"
+
+class Followers(db.Model):
+    __tablename__ = "followers"
     id = db.Column(db.Integer, primary_key=True)
-    user_from_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    user_to_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-    user_from = db.relationship("User", foreign_keys=[user_from_id])
-    user_to = db.relationship("User", foreign_keys=[user_to_id])
+    follower_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    followed_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_from = db.relationship("User", foreign_keys=[follower_id])
+    user_to = db.relationship("User", foreign_keys=[followed_id])
 
     def __repr__(self):
-        return f'<follow follower: {self.user_from_id} followed: {self.user_to_id}>'
-    
+        return f'<follower: {self.follower_id} followed: {self.followed_id}>'
+
     def serialize(self):
         return {
-            "id": self.id, 
-            "user_from_id": self.user_from_id,
-            "user_to_id": self.user_to_id
+            "id": self.id,
+            "follower_id": self.follower_id,
+            "followed_id": self.followed_id
         }
