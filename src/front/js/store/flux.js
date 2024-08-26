@@ -13,7 +13,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(email, password, name, lastname, nickname, gender, country);
 				try {
 					const response = await fetch(
-						`${process.env.BACKEND_URL}api/register`,
+						`${process.env.BACKEND_URL}/api/register`,
 						{
 							method: "POST",
 							headers: {
@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			login: async (email, password) => {
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/login`,
+					const response = await fetch(`${process.env.BACKEND_URL}/api/login`,
 						{
 							method: "POST",
 							headers: {
@@ -61,12 +61,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						currentUser: data.user // Guardar el usuario en el store
 					});
 
-
-
 					return true;
 				} catch (error) {
 					console.error('Error en la solicitud:', error);
-				}
+				};
 
 			},
 
@@ -74,7 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/users`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users`)
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -95,7 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/songs`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/songs`)
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -115,7 +113,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const jwt = localStorage.getItem("token")
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/song`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/song`, {
 						method: "POST",
 						body: JSON.stringify(song),
 						headers: {
@@ -138,7 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllMusicGenders: async () => {
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/music_gender`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/music_gender`)
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -154,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllMusicRoles: async () => {
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/music_role`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/music_role`)
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -170,7 +168,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllCountrys: async () => {
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/country`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/country`)
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -186,7 +184,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllUsersByParam: async (value, param) => {
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}api/users/${param}/${value}`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${param}/${value}`)
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -202,16 +200,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Nueva acción para obtener los detalles de un usuario
 			getUserDetails: async (userId) => {
 				try {
-				  const response = await fetch(`${process.env.BACKEND_URL}api/users/${userId}`);
-				  if (!response.ok) {
-					throw new Error("No se pudo obtener la información del usuario");
-				  }
-				  const data = await response.json();
-				  setStore({ userDetails: data });
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}`);
+					if (!response.ok) {
+						throw new Error("No se pudo obtener la información del usuario");
+					}
+					const data = await response.json();
+					setStore({ userDetails: data });
 				} catch (error) {
-				  console.log("Error al obtener los detalles del usuario:", error);
+					console.log("Error al obtener los detalles del usuario:", error);
 				}
-			  },
+			},
 
 
 		}
