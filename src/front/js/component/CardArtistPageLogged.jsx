@@ -10,7 +10,12 @@ const CardArtistPageLogged = () => {
   const navigate = useNavigate();
 
   const handleProfileClick = (userId) => {
-    navigate(`/profile/${userId}`);
+    if (userId == store.currentUser.id) {
+        navigate(`/myprofile/${userId}`)
+    } else {
+        navigate(`/profile/${userId}`);
+    }
+    
   };
 
   return (

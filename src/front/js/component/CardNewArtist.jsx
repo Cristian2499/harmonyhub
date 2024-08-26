@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 const CardNewArtist = ({ name, imageNewArtist }) => {
   return (
+    
     <div className="bg-card card m-1 py-1 px-4 border-0">
       <div className="text-white fs-5 mb-1">{name}</div>
       <div className="d-flex">
