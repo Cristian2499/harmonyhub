@@ -1,4 +1,5 @@
 import React, {useContext} from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/card-artist-page-logged.css";
 import img01 from "../../img/img-new-artist/img-01.png";
@@ -6,7 +7,11 @@ import img01 from "../../img/img-new-artist/img-01.png";
 const CardArtistPageLogged = () => {
 
   const {store} =  useContext(Context);
-  console.log(store.users);
+  const navigate = useNavigate();
+
+  const handleProfileClick = (userId) => {
+    navigate(`/profile/${userId}`);
+  };
 
   return (
     <div className="row">
@@ -18,8 +23,15 @@ const CardArtistPageLogged = () => {
               <img src={img01} className="card-img-top rounded" alt="..." />
               <div className="card-body">
                 <h5 className="text-white">{user.nickname}</h5>
-                <p className="card-text text-white">{user.description}</p>
-                <p className="card-text text-white">{user.description}</p>
+                <p className="card-text text-white">País: {user.country}</p>
+                <p className="card-text text-white">Géneros Musicales: {user.music_genders.join(', ')}</p>
+                <p className="card-text text-white">Roles Musicales: {user.music_roles.join(', ')}</p>
+                <button
+                  className="btn backcolor"
+                  onClick={() => handleProfileClick(user.id)}
+                >
+                  Profile
+                </button>
               </div>
             </div>
           </div>

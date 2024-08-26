@@ -13,6 +13,7 @@ import { MyProfile } from "./pages/myProfile.js";
 import { Dashboard } from "./pages/dashboard.js";
 import AboutUs from "./pages/aboutus";
 import Faqs from "./pages/faqs";
+import UserProfile from "./pages/userProfile";
 
 //create your first component
 const Layout = () => {
@@ -33,6 +34,7 @@ const Layout = () => {
             <Route element={<Dashboard />} path="/dashboard" />
             <Route element={<Signin />} path="/signin" />
             <Route element={<MyProfile />} path="/myprofile/:id" />
+            <Route element={<UserProfile />} path="/profile/:userId" /> {/* Nueva ruta */}
             <Route element={<Search />} path="/search" />
             <Route element={<Connected />} path="/connected" />
             <Route element={<ContactUs />} path="/contactus" />
