@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-const FollowCounter =({userId}) =>{
-    
+const FollowCounter = ({ userId }) => {
+
     const [followerCount, setFollowerCount] = useState(0);
     const token = localStorage.getItem("token")
 
-    useEffect (() => {
+    useEffect(() => {
         async function fetchFollowerCount() {
             try {
                 const res = await fetch(`${process.env.BACKEND_URL}/api/follower-count/${userId}`, {
@@ -26,7 +26,10 @@ const FollowCounter =({userId}) =>{
             }
         }
         fetchFollowerCount();
+        const intervalId = setInterval(fetchFollowerCount, 500);
+        return () => clearInterval(intervalId);
     }, [userId, token]);
+
 
 
     return (
