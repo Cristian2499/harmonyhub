@@ -276,7 +276,7 @@ def follow_user(user_to_id):
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
 
-@api.route("/follow/<int:user_to_id>", methods=["DELETE"])
+@api.route("/unfollow/<int:user_to_id>", methods=["POST"])
 @jwt_required()
 def delete_follower(user_to_id):
     try:
@@ -296,6 +296,29 @@ def delete_follower(user_to_id):
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
+
+#metodo get agregado por Luis
+@api.route("/follow-status/<int:user_to_id>" , methods=["GET"])
+@jwt_required()
+def follow_status(user_to_id):
+    try:
+        user_data = get_jwt_identity()
+        user_exist = User.query.get(user_to_id)
+        if user_exist is None:
+            return jsonify({"error": f"user not found"}), 404
+        
+        followed_user = Follow.query.filter_by(user_from_id = user_data["id"], user_to_id=user_to_id).first()
+        if followed_user is None:
+            return jsonify({"msg": "user is not followed"}), 400
+        follow_info = Follow.query.get(user_data["id"])
+        data=follow_info.serialize()
+        if data.user_from_id == data.user_to_id:
+            return jsonify({"follow_status": True})
+        else:
+            return jsonify({"follow_status": False})
+    
+    except Exception as error:
+        return jsonify({"error": f"{error}"}),500
     
 
 #Agregado por Cristobal Busqueda por ID    
