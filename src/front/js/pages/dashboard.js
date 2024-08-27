@@ -19,24 +19,13 @@ export const Dashboard = () => {
         <div className="d-flex row m-4 gap-4">
         
           <span className="fs-2 ps-0 fw-bold">Emerging Artists</span>
+
           <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
-          <CardArtistPageLogged />
+          
+          
           <span className="fs-2 ps-0 fw-bold">Explore</span>
           <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
-          <CardExplore/>
+          
         </div>
       </div>
       <Footer />

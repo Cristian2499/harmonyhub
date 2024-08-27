@@ -32,70 +32,62 @@ export const Home = () => {
           <div className="container d-flex justify-content-center my-2 py-2">
             <h2>Discover New Artists</h2>
           </div>
-          <CardNewArtist name="John Doe - Guitarist" imageNewArtist={img01} />
-          <CardNewArtist name="Jane Smith - Singer" imageNewArtist={img02} />
-          <CardNewArtist
-            name="Mike Johnson - M. Producer"
-            imageNewArtist={img03}
-          />
-          <CardNewArtist
-            name="Emily Davis - Guitarist"
-            imageNewArtist={img04}
-          />
-          <CardNewArtist name="Chris Lee - Cellist" imageNewArtist={img05} />
-          <CardNewArtist
-            name="Anna Brown - M. Producer"
-            imageNewArtist={img06}
-          />
+          <div className="row">
+          {store.users.slice(0, 6).map((user) => {
+            return (
+              <div key={user.id} className="col-4">
+                <CardNewArtist name={user.nickname} imageNewArtist={img05} />
+              </div>
+            );
+          })}
+          </div>
 
           <div className="d-flex justify-content-center my-5">
-          <div
-            id="carouselExampleAutoplaying"
-            className="carousel slide"
-            data-bs-ride="carousel"
-          >
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <img src={group1} className="d-block w-100" alt="..." />
+            <div
+              id="carouselExampleAutoplaying"
+              className="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img src={group1} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                  <img src={group2} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                  <img src={group3} className="d-block w-100" alt="..." />
+                </div>
+                <div className="carousel-item">
+                  <img src={group4} className="d-block w-100" alt="..." />
+                </div>
               </div>
-              <div className="carousel-item">
-                <img src={group2} className="d-block w-100" alt="..." />
-              </div>
-              <div className="carousel-item">
-                <img src={group3} className="d-block w-100" alt="..." />
-              </div>
-              <div className="carousel-item">
-                <img src={group4} className="d-block w-100" alt="..." />
-              </div>
+              <button
+                className="carousel-control-prev"
+                type="button"
+                data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev"
+              >
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next"
+              >
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
             </div>
-            <button
-              className="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleAutoplaying"
-              data-bs-slide="prev"
-            >
-              <span
-                className="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleAutoplaying"
-              data-bs-slide="next"
-            >
-              <span
-                className="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-              <span className="visually-hidden">Next</span>
-            </button>
           </div>
-          </div>
-
-
         </div>
       </div>
       <Footer />

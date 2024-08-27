@@ -32,15 +32,15 @@ export const Footer = () => {
 
         <div className="footer-menu container-fluid d-flex justify-content-center">
           <MenuFooter
-            direction1="/"
+            direction1="/aboutus"
             name1="About us"
-            direction2="/"
+            direction2="/features"
             name2="Features"
-            direction3="/3"
+            direction3="/contactus"
             name3="Contact us"
-            direction4="/4"
+            direction4="/faqs"
             name4="FAQs"
-            direction5="/5"
+            direction5="/carrers"
             name5="Careers"
           />
         </div>

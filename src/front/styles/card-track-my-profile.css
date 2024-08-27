@@ -1,11 +1,11 @@
 .card-track-profile{
-    width: 25.7rem;
+    width: 25rem;
     height: auto;
 }
 
 @media (min-width: 1921px) {
     .card-track-profile{
-      width: 35rem;
+      width: 30rem;
     }
     
   } 
