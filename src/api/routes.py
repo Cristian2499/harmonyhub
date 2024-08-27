@@ -201,6 +201,19 @@ def create_song():
 
     except Exception as error:
         return jsonify({"error": f"{error}"}), 500
+    
+@api.route("/user/<int:user_id>/songs", methods=["GET"])
+def get_songs_by_user(user_id):
+    try:
+        user = User.query.get(user_id)
+        if user is None:
+            return jsonify({"error": "User not found"}), 404
+
+        songs = Song.query.filter_by(user_id=user_id).all()
+        return jsonify({"songs": [song.serialize() for song in songs]})
+
+    except Exception as error:
+        return jsonify({"error": f"{error}"}), 500
 
 
 @api.route("/song/<int:song_id>", methods=["DELETE"])

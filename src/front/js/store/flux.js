@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentUser: null, // Aquí se almacenará el usuario autenticado
 			songs: [],
 			userDetails: null, // Almacena los detalles de un usuario específico
+			userSongs: [],
 
 		},
 		actions: {
@@ -98,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new error("No se cargo la API");
 					}
 					const data = await response.json();
-					console.log(data);
+					
 
 					setStore({ songs: data })
 
@@ -297,6 +298,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error in the request:", error);
 					return false;
+				}
+			},
+
+            getSongsByUser: async (userId) => {
+				// Función para obtener las canciones de un usuario específico
+				const store = getStore();
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/songs`);
+					if (!response.ok) {
+						throw new Error("No se pudo obtener las canciones del usuario");
+					}
+					const data = await response.json();
+					setStore({ ...store, userSongs: data });
+				} catch (error) {
+					console.error("Error fetching songs by user:", error);
 				}
 			},
 		
