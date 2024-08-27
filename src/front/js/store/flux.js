@@ -232,6 +232,75 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			addRoleToUser: async (userId, roleId) => {
+				try {
+				  const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/role/${roleId}`, {
+					method: "POST",
+					headers: {
+					  "Content-Type": "application/json",
+					},
+				  });
+			  
+				  if (!response.ok) throw new Error("Error in the request");
+				  return true;
+				} catch (error) {
+				  console.error("Error in the request:", error);
+				  return false;
+				}
+			  },
+			  
+			  updateRoleOfUser: async (userId, roleId) => {
+				try {
+				  const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/role/${roleId}`, {
+					method: "PUT",
+					headers: {
+					  "Content-Type": "application/json",
+					},
+				  });
+			  
+				  if (!response.ok) throw new Error("Error in the request");
+				  return true;
+				} catch (error) {
+				  console.error("Error in the request:", error);
+				  return false;
+				}
+			  },
+
+			  addGenderToUser: async (userId, genderId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/gender/${genderId}`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+			
+					if (!response.ok) throw new Error("Error in the request");
+					return true;
+				} catch (error) {
+					console.error("Error in the request:", error);
+					return false;
+				}
+			},
+			
+			updateGenderOfUser: async (userId, genderId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/gender/${genderId}`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+			
+					if (!response.ok) throw new Error("Error in the request");
+					return true;
+				} catch (error) {
+					console.error("Error in the request:", error);
+					return false;
+				}
+			},
+		
+
 
 		}
 	};

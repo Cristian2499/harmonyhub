@@ -536,6 +536,17 @@ def add_role_to_user(user_id, role_id):
     db.session.commit()
     return jsonify({"msg": "role added"}), 200
 
+@api.route("/users/<int:user_id>/role/<int:role_id>", methods=["PUT"])
+def update_role_of_user(user_id, role_id):
+    user_role = UserMusicRole.query.filter_by(user_id=user_id).first()
+
+    if user_role:
+        user_role.music_role_id = role_id  # Actualiza el rol musical
+        db.session.commit()
+        return jsonify({"msg": "Role updated successfully"}), 200
+    else:
+        return jsonify({"error": "User does not have an assigned role"}), 404
+
 
 @api.route("/users/<int:user_id>/gender/<int:gender_id>", methods=["POST"])
 def add_gender_to_user(user_id, gender_id):
@@ -548,3 +559,14 @@ def add_gender_to_user(user_id, gender_id):
     db.session.add(new_music_gender)
     db.session.commit()
     return jsonify({"msg": "gender added"}), 200
+
+@api.route("/users/<int:user_id>/gender/<int:gender_id>", methods=["PUT"])
+def update_gender_of_user(user_id, gender_id):
+    user_gender = UserMusicGender.query.filter_by(user_id=user_id).first()
+
+    if user_gender:
+        user_gender.music_gender_id = gender_id  # Actualiza el rol musical
+        db.session.commit()
+        return jsonify({"msg": "Gender updated successfully"}), 200
+    else:
+        return jsonify({"error": "User does not have an assigned gender"}), 404
