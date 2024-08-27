@@ -7,18 +7,17 @@ import { useParams } from "react-router-dom";
 const CardMyProfile = () => {
   const params = useParams();
   const { store, actions } = useContext(Context)
-  const descriptionUser = store.users.find((user) => user.id == params.id)
- console.log(descriptionUser);
+  
  
 
-  return (
+  return  store.currentUser &&(
     <div className="base-card-profile p-3 rounded">
       <img src={img01} className="card-img-top rounded" alt="..." />
       <div className="card-body text-center">
-        <h3 className="name mb-5">{`${descriptionUser.name} ${descriptionUser.lastname}`}</h3>
+        <h3 className="name mb-5">{`${store.currentUser.name} ${store.currentUser.lastname}`}</h3>
         <h4 className="music-roles">Music Roles</h4>
         <div>
-          {descriptionUser.music_roles.map((role) => {
+          {store.currentUser.music_roles.map((role) => {
             return (
               <p key={role}>{role}</p>
             )
@@ -32,7 +31,7 @@ const CardMyProfile = () => {
         </form>
         <h4 className="music-roles">Music Genders</h4>
         <div>
-          {descriptionUser.music_genders.map((gender) => {
+          {store.currentUser.music_genders.map((gender) => {
             return (
               <p key={gender}>{gender}</p>
             )

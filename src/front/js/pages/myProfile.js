@@ -5,6 +5,7 @@ import Sidebar from "../component/Sidebar.jsx";
 import CardMyProfile from "../component/CardMyProfile.jsx";
 import img04 from "../../img/img-new-artist/img-04.png";
 import CardTrackMyProfile from "../component/CardTrackMyProfile.jsx";
+import FollowCounter from "../component/FollowCounter.jsx";
 import { Footer } from "../component/Footer.jsx";
 import { Context } from "../store/appContext.js";
 import { useParams } from "react-router-dom";
@@ -14,8 +15,9 @@ export const MyProfile = () => {
   const params = useParams()
   const { store, actions } = useContext(Context);
   const descriptionUserId = store.users.find((user) => user.id == params.id)
+  const { userId } = useParams();
   console.log(descriptionUserId);
-  
+
   const [song, setSong] = useState({
     name: "",
     description: ""
@@ -29,25 +31,26 @@ export const MyProfile = () => {
     e.preventDefault();
     e.target.value = "";
     try {
-        const response = await actions.postSong(song);
-        if (response) {
-            console.log(response);
-        } else {
-            console.log("Error");
-        }
+      const response = await actions.postSong(song);
+      if (response) {
+        console.log(response);
+      } else {
+        console.log("Error");
+      }
     } catch (error) {
-        console.error("Error al enviar la canción:", error);
+      console.error("Error al enviar la canción:", error);
     }
     actions.getSongs();
-}
+  }
 
-useEffect(()=>{
+  useEffect(() => {
 
-},[store.songs])
+  }, [store.songs])
 
 
 
   return (
+
     <div className="base-profile">
       <NavbarLogged />
       <div className="d-flex">
@@ -60,17 +63,9 @@ useEffect(()=>{
           </div>
           <div className="container-fluid d-flex flex-column">
             <div className="base-statistics row d-flex justify-content-center mt-2 container-fluid">
-              <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5">{store.songs.length}</span>
-                <span className="statistic-item fw-bold fs-4">Tracks</span>
-              </div>
-              <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5">HC</span>
+                <div className="col d-flex flex-column justify-content-center align-items-center">
+                <span className="fw-bold fs-5">{store.currentUser && store.currentUser.followers}</span>
                 <span className="statistic-item fw-bold fs-4">Followers</span>
-              </div>
-              <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5">HC</span>
-                <span className="statistic-item fw-bold fs-4">Following</span>
               </div>
             </div>
             <div className="base-form-edit container-fluid d-flex flex-column">
@@ -86,7 +81,7 @@ useEffect(()=>{
                   </div>
                   <div className="col-md-8">
 
-                     <form className="card-body" onSubmit={handleSubmit}>
+                    <form className="card-body" onSubmit={handleSubmit}>
                       <div className="mb-3">
                         <input
                           type="text"
@@ -95,11 +90,11 @@ useEffect(()=>{
                           name="name"
                           onChange={(e) => handleChange(e)}
                           required
-                        /> 
+                        />
                       </div>
                       <div className="mb-3">
                         <textarea
-                          className="form-control"                          
+                          className="form-control"
                           placeholder="Description Song"
                           rows="3"
                           name="description"
@@ -110,7 +105,7 @@ useEffect(()=>{
                       <div className="mb-3 text-end">
                         <button type="submit" className="btn-upload ms-auto">Upload</button>
                       </div>
-                    </form> 
+                    </form>
 
 
                   </div>

@@ -458,37 +458,71 @@ def get_all_countrys():
     return jsonify([item.value for item in Country]), 200
 
 
-@api.route("/users/country/<name>", methods=["GET"])
-def get_all_users_by_country(name):
-    country_enum = next((c for c in Country if c.value == name), None)
-    users = User.query.filter_by(country=country_enum).all()
-    if len(users) < 1:
-        return jsonify({"error": "users by country not found"}), 404
-    return jsonify([item.serialize() for item in users]), 200
+@api.route("/users/filter", methods=["POST"])
+def get_all_users_by_filter():
+    body = request.json
+    users_list = []
+    users_c_list=[]
+    users_r_list=[]
+    users_g_list=[]
+    if "city" in body: 
+        if body["city"] != "default":
+            country_enum = next((c for c in Country if c.value == body["city"]), None)
+            users = User.query.filter_by(country=country_enum).all()
+            if len(users) >= 1:
+                users_c_list = [item.serialize() for item in users]
+            
+    
+    if "role" in body: 
+        if body["role"] != "default":
+            role = MusicRole.query.get(body["role"])
+            if not role:
+                return jsonify({"msg": "role not found"}), 404
+            users = User.query.join(UserMusicRole).filter(
+                UserMusicRole.music_role_id == body["role"]).all()
+            if len(users) >= 1:
+                users_r_list = [item.serialize() for item in users]
+
+    if "gender" in body: 
+        if body["gender"] != "default":
+            gender = MusicGender.query.get(body["gender"])
+            if not gender:
+                return jsonify({"msg": "gender not found"}), 404
+            users = User.query.join(UserMusicGender).filter(
+                UserMusicGender.music_gender_id == body["gender"]).all()
+            if len(users) >= 1:
+                users_g_list = [item.serialize() for item in users]
+    
+    users_list = users_c_list + users_r_list + users_g_list
+    if len(users_list) < 1:
+        return jsonify({"error": "users not found"}), 404
+    return jsonify(users_list), 200
 
 
-@api.route("/users/role/<int:role_id>", methods=["GET"])
-def get_all_users_by_role(role_id):
-    role = MusicRole.query.get(role_id)
-    if not role:
-        return jsonify({"msg": "role not found"}), 404
-    users = User.query.join(UserMusicRole).filter(
-        UserMusicRole.music_role_id == role_id).all()
-    if len(users) < 1:
-        return jsonify({"error": "users by role not found"}), 404
-    return jsonify([item.serialize() for item in users]), 200
 
 
-@api.route("/users/gender/<int:gender_id>", methods=["GET"])
-def get_all_users_by_gender(gender_id):
-    gender = MusicGender.query.get(gender_id)
-    if not gender:
-        return jsonify({"msg": "gender not found"}), 404
-    users = User.query.join(UserMusicGender).filter(
-        UserMusicGender.music_gender_id == gender_id).all()
-    if len(users) < 1:
-        return jsonify({"error": "users by gender not found"}), 404
-    return jsonify([item.serialize() for item in users]), 200
+# @api.route("/users/role/<int:role_id>", methods=["GET"])
+# def get_all_users_by_role(role_id):
+#     role = MusicRole.query.get(role_id)
+#     if not role:
+#         return jsonify({"msg": "role not found"}), 404
+#     users = User.query.join(UserMusicRole).filter(
+#         UserMusicRole.music_role_id == role_id).all()
+#     if len(users) < 1:
+#         return jsonify({"error": "users by role not found"}), 404
+#     return jsonify([item.serialize() for item in users]), 200
+
+
+# @api.route("/users/gender/<int:gender_id>", methods=["GET"])
+# def get_all_users_by_gender(gender_id):
+#     gender = MusicGender.query.get(gender_id)
+#     if not gender:
+#         return jsonify({"msg": "gender not found"}), 404
+#     users = User.query.join(UserMusicGender).filter(
+#         UserMusicGender.music_gender_id == gender_id).all()
+#     if len(users) < 1:
+#         return jsonify({"error": "users by gender not found"}), 404
+#     return jsonify([item.serialize() for item in users]), 200
 
 
 @api.route("/users/<int:user_id>/role/<int:role_id>", methods=["POST"])
