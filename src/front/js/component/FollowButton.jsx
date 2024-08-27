@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "../../styles/card-my-profile.css";
 
 const FollowButton = ({ userId, followerCount, setFollowerCount, isFollowing, setIsFollowing }) => {
-    console.log(userId, "usuario")
+    
     // const [isFollowing, setIsFollowing] = useState(false);
     const token = localStorage.getItem("token");
 
@@ -42,7 +42,7 @@ const FollowButton = ({ userId, followerCount, setFollowerCount, isFollowing, se
             console.log(localStorage.getItem("token"));
 
             const res = await fetch(`${process.env.BACKEND_URL}/api/${action}/${userId}`, { method, headers: { "Authorization": `Bearer ${token}` } });
-            console.log(res)
+            
             if (res.ok) {
                 setIsFollowing(!isFollowing);
                 if (!isFollowing) {
@@ -59,9 +59,9 @@ const FollowButton = ({ userId, followerCount, setFollowerCount, isFollowing, se
     }
 
     return (
-        <a onClick={handleFollowToggle} className="btn edit-profile fs-3">
+        <p onClick={handleFollowToggle} className="btn edit-profile fs-3">
             {isFollowing ? "UNFOLLOW" : "FOLLOW"}
-        </a>
+        </p>
     );
 };
 
