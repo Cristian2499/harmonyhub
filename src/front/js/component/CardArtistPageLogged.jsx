@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/card-artist-page-logged.css";
 import img01 from "../../img/img-new-artist/img-01.png";
-import  Navigate, { useNavigate }  from "react-router-dom";
+import { useNavigate }  from "react-router-dom";
 
 const CardArtistPageLogged = ({ dataUpdated }) => {
   const { store, actions } = useContext(Context);
@@ -31,9 +31,9 @@ const CardArtistPageLogged = ({ dataUpdated }) => {
   };
 
   return (
-    <div className="row mx-2">
+    <div className="row ">
       {users.slice(0, 8).map((user) => (
-        <div key={user.id} className="col-3 pb-2 pt-2 mx-4">
+        <div key={user.id} className="col-3 pb-2 pt-2 ">
           <div className="base-card-artist p-3 bg-dark shadow rounded">
             <img src={img01} className="card-img-top rounded" alt="..." />
             <div className="card-body">

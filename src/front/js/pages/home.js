@@ -36,7 +36,7 @@ export const Home = () => {
           {store.users.slice(0, 6).map((user) => {
             return (
               <div key={user.id} className="col-4">
-                <CardNewArtist name={user.nickname} imageNewArtist={img02} />
+                <CardNewArtist name={user.nickname} imageNewArtist={img05} />
               </div>
             );
           })}
