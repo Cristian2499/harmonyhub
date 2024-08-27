@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "../../styles/user-profile.css";
 import { NavbarLogged } from "../component/NavbarLogged.jsx";
 import Sidebar from "../component/Sidebar.jsx";
@@ -16,8 +16,11 @@ import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const { store, actions } = useContext(Context);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
   const { userId } = useParams();
   const navigate = useNavigate();
+
 
   const handleDashboardClick = () => {
     navigate("/dashboard");
@@ -62,20 +65,14 @@ const UserProfile = () => {
           <div className="container-fluid d-flex flex-column">
             <div className="base-statistics row d-flex justify-content-center mt-2 container-fluid">
               <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5">{store.songs.length}</span>
-                <span className="statistic-item fw-bold fs-4">Tracks</span>
-              </div>
-              <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5"><FollowCounter userId={userId} /></span>
+                <span className="fw-bold fs-5"><FollowCounter userId={userId} setFollowerCount={setFollowerCount} followerCount={followerCount} isFollowing={isFollowing} setIsFollowing={setIsFollowing} /></span>
                 <span className="statistic-item fw-bold fs-4">Followers</span>
               </div>
               <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5">HC</span>
-                <span className="statistic-item fw-bold fs-4">Following</span>
+                <div>
+                  <FollowButton userId={userId} setFollowerCount={setFollowerCount} followerCount={followerCount} isFollowing={isFollowing} setIsFollowing={setIsFollowing} />
+                </div>
               </div>
-            </div>
-            <div>
-              <FollowButton userId={userId} />
             </div>
           </div>
         </div>

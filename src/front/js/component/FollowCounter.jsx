@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-const FollowCounter = ({ userId }) => {
+const FollowCounter = ({ userId, followerCount, setFollowerCount }) => {
 
-    const [followerCount, setFollowerCount] = useState(0);
+    // const [followerCount, setFollowerCount] = useState(0);
     const token = localStorage.getItem("token")
 
     useEffect(() => {
@@ -26,15 +26,15 @@ const FollowCounter = ({ userId }) => {
             }
         }
         fetchFollowerCount();
-        const intervalId = setInterval(fetchFollowerCount, 500);
-        return () => clearInterval(intervalId);
+        // const intervalId = setInterval(fetchFollowerCount, 500);
+        // return () => clearInterval(intervalId);
     }, [userId, token]);
 
 
 
     return (
-        <div>
-            {followerCount} FOLLOWERS
+        <div className="fs-1">
+            {followerCount}
         </div>
     );
 }

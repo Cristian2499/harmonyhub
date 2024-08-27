@@ -181,10 +181,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getAllUsersByParam: async (value, param) => {
+			getAllUsersByParam: async (filters) => {
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${param}/${value}`)
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/filter`, {
+						method: "POST",
+						body: JSON.stringify(filters),
+						headers: {
+							"Content-Type": "application/json"
+						}
+					})
 					if (!response.ok) {
 						throw new error("No se cargo la API");
 					}
@@ -206,6 +212,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json();
 					setStore({ userDetails: data });
+				} catch (error) {
+					console.log("Error al obtener los detalles del usuario:", error);
+				}
+			},
+
+			getMyInfo: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/me`, {headers: {Authorization: "Bearer "+ localStorage.getItem("token")}});
+					if (!response.ok) {
+						throw new Error("No se pudo obtener la información del usuario");
+					}
+					const data = await response.json();
+					if (response.ok){
+						setStore({ currentUser: data });
+					}					
 				} catch (error) {
 					console.log("Error al obtener los detalles del usuario:", error);
 				}

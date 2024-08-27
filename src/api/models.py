@@ -62,7 +62,8 @@ class User(db.Model):
             "music_roles": [music_role.full_serialize()["name"] for music_role in self.music_roles],
             "country": self.country.value,
             "description": self.description,
-            "followers": [follow.serialize() for follow in self.follower]
+            "followers": len([follow.serialize() for follow in self.follower]),
+            
         }
 
 
