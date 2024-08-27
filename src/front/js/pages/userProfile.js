@@ -2,17 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import "../../styles/user-profile.css";
 import { NavbarLogged } from "../component/NavbarLogged.jsx";
 import Sidebar from "../component/Sidebar.jsx";
-import CardMyProfile from "../component/CardMyProfile.jsx";
-import img04 from "../../img/img-new-artist/img-04.png";
-import CardTrackMyProfile from "../component/CardTrackMyProfile.jsx";
 import img01 from "../../img/img-new-artist/img-01.png";
+import CardTrackUserProfile from "../component/CardTrackUserProfile.jsx";
 import FollowButton from "../component/FollowButton.jsx";
 import FollowCounter from "../component/FollowCounter.jsx";
 import { Footer } from "../component/Footer.jsx";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-
 
 const UserProfile = () => {
   const { store, actions } = useContext(Context);
@@ -21,19 +18,30 @@ const UserProfile = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    actions.getUserDetails(userId);
+    actions.getSongs(); 
+  }, [userId]);
+
+  
+  const user = store.users.find((user) => user.id === parseInt(userId));
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
+  const userSongs = store.songs
+    .filter(song => song.user_id === parseInt(userId))
+    .map((song, index) => ({
+      id: index + 1, 
+      title: song.name,
+      description: song.description || "No description available",
+      artist: user.nickname 
+    }));
 
   const handleDashboardClick = () => {
     navigate("/dashboard");
   };
-
-  useEffect(() => {
-    // Llama a una acción para obtener detalles del usuario si es necesario
-    actions.getUserDetails(userId);
-  }, [userId]);
-
-  const user = store.users.find((user) => user.id === parseInt(userId));
-
-  if (!user) return <div>Loading...</div>;
 
   return (
     <div className="base-profile">
@@ -51,8 +59,7 @@ const UserProfile = () => {
                 <p>{user.country}</p>
                 <p>{user.email}</p>
                 <h4 className="music-roles">Music Roles: {user.music_roles.join(", ")}</h4>
-                <h4 className="music-roles">Music Genders: {user.music_genders.join(", ")}</h4>
-                {/* Puedes agregar más detalles del usuario aquí */}
+                <h4 className="music-genders">Music Genders: {user.music_genders.join(", ")}</h4>
                 <button
                   className="userprofilebackcolor"
                   onClick={handleDashboardClick}
@@ -65,14 +72,36 @@ const UserProfile = () => {
           <div className="container-fluid d-flex flex-column">
             <div className="base-statistics row d-flex justify-content-center mt-2 container-fluid">
               <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5"><FollowCounter userId={userId} setFollowerCount={setFollowerCount} followerCount={followerCount} isFollowing={isFollowing} setIsFollowing={setIsFollowing} /></span>
+                <span className="fw-bold fs-5">
+                  <FollowCounter 
+                    userId={userId} 
+                    setFollowerCount={setFollowerCount} 
+                    followerCount={followerCount} 
+                    isFollowing={isFollowing} 
+                    setIsFollowing={setIsFollowing} 
+                  />
+                </span>
                 <span className="statistic-item fw-bold fs-4">Followers</span>
               </div>
               <div className="col d-flex flex-column justify-content-center align-items-center">
                 <div>
-                  <FollowButton userId={userId} setFollowerCount={setFollowerCount} followerCount={followerCount} isFollowing={isFollowing} setIsFollowing={setIsFollowing} />
+                  <FollowButton 
+                    userId={userId} 
+                    setFollowerCount={setFollowerCount} 
+                    followerCount={followerCount} 
+                    isFollowing={isFollowing} 
+                    setIsFollowing={setIsFollowing} 
+                  />
                 </div>
               </div>
+            </div>
+            {/* Mostrar canciones del usuario con CardTrackUserProfile */}
+            <div>
+              {userSongs.length > 0 ? (
+                <CardTrackUserProfile userSongs={userSongs} />
+              ) : (
+                <p>No songs available for this user.</p>
+              )}
             </div>
           </div>
         </div>

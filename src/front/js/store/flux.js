@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentUser: null, // Aquí se almacenará el usuario autenticado
 			songs: [],
 			userDetails: null, // Almacena los detalles de un usuario específico
+			userSongs: [],
 
 		},
 		actions: {
@@ -98,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new error("No se cargo la API");
 					}
 					const data = await response.json();
-					console.log(data);
+					
 
 					setStore({ songs: data })
 
@@ -231,6 +232,90 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error al obtener los detalles del usuario:", error);
 				}
 			},
+
+			addRoleToUser: async (userId, roleId) => {
+				try {
+				  const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/role/${roleId}`, {
+					method: "POST",
+					headers: {
+					  "Content-Type": "application/json",
+					},
+				  });
+			  
+				  if (!response.ok) throw new Error("Error in the request");
+				  return true;
+				} catch (error) {
+				  console.error("Error in the request:", error);
+				  return false;
+				}
+			  },
+			  
+			  updateRoleOfUser: async (userId, roleId) => {
+				try {
+				  const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/role/${roleId}`, {
+					method: "PUT",
+					headers: {
+					  "Content-Type": "application/json",
+					},
+				  });
+			  
+				  if (!response.ok) throw new Error("Error in the request");
+				  return true;
+				} catch (error) {
+				  console.error("Error in the request:", error);
+				  return false;
+				}
+			  },
+
+			  addGenderToUser: async (userId, genderId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/gender/${genderId}`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+			
+					if (!response.ok) throw new Error("Error in the request");
+					return true;
+				} catch (error) {
+					console.error("Error in the request:", error);
+					return false;
+				}
+			},
+			
+			updateGenderOfUser: async (userId, genderId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/gender/${genderId}`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+			
+					if (!response.ok) throw new Error("Error in the request");
+					return true;
+				} catch (error) {
+					console.error("Error in the request:", error);
+					return false;
+				}
+			},
+
+            getSongsByUser: async (userId) => {
+				// Función para obtener las canciones de un usuario específico
+				const store = getStore();
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users/${userId}/songs`);
+					if (!response.ok) {
+						throw new Error("No se pudo obtener las canciones del usuario");
+					}
+					const data = await response.json();
+					setStore({ ...store, userSongs: data });
+				} catch (error) {
+					console.error("Error fetching songs by user:", error);
+				}
+			},
+		
 
 
 		}
