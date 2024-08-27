@@ -17,6 +17,8 @@ const FollowCounter = ({ userId, followerCount, setFollowerCount }) => {
                 if (res.ok) {
                     const data = await res.json();
                     setFollowerCount(data.follower_count);
+                    console.log(data);
+                    
                 } else {
                     const errorData = await res.json();
                     console.error('Error fetching follower count:', errorData.error);
@@ -28,7 +30,7 @@ const FollowCounter = ({ userId, followerCount, setFollowerCount }) => {
         fetchFollowerCount();
         // const intervalId = setInterval(fetchFollowerCount, 500);
         // return () => clearInterval(intervalId);
-    }, [userId, token]);
+    }, [userId, token, followerCount]);
 
 
 

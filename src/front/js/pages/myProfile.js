@@ -15,8 +15,10 @@ export const MyProfile = () => {
   const params = useParams()
   const { store, actions } = useContext(Context);
   const descriptionUserId = store.users.find((user) => user.id == params.id)
-  const { userId } = useParams();
-  console.log(descriptionUserId);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
+  
+  console.log(descriptionUserId.id);
 
   const [song, setSong] = useState({
     name: "",
@@ -64,7 +66,15 @@ export const MyProfile = () => {
           <div className="container-fluid d-flex flex-column">
             <div className="base-statistics row d-flex justify-content-center mt-2 container-fluid">
                 <div className="col d-flex flex-column justify-content-center align-items-center">
-                <span className="fw-bold fs-5">{store.currentUser && store.currentUser.followers}</span>
+                <span className="fw-bold fs-5">
+                <FollowCounter 
+                    userId={descriptionUserId.id} 
+                    setFollowerCount={setFollowerCount} 
+                    followerCount={followerCount} 
+                    isFollowing={isFollowing} 
+                    setIsFollowing={setIsFollowing} 
+                  />
+                </span>
                 <span className="statistic-item fw-bold fs-4">Followers</span>
               </div>
             </div>
